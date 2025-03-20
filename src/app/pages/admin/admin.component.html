@@ -1,1 +1,13 @@
 <p>admin works!</p>
+
+@if (userLoginOn){
+    <div class="info-user">
+        <p>USUARIO AUTENTICADO!</p>
+        
+        <p>nombre: {{userData?.email}}</p>
+        <p>nombre: {{userData?.id}}</p>
+        <p>nombre: {{userData?.lastName}}</p>
+        <p>nombre: {{userData?.name}}</p>
+        <p>nombre: {{userData?.rol}}</p>
+    </div>
+}

@@ -1,14 +1,35 @@
 <div class="container">
     <div class="login">
         <form [formGroup]="loginForm">
+            <p class="text-danger">{{loginError}}</p>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Usuario</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="email">
-                <div id="emailHelp" class="form-text">Nunca compartiremos tu correo electronico</div>
+                @if (email.untouched){
+                    <div id="emailHelp" class="form-text">Nunca compartiremos tu correo electronico</div>
+                }
+
+                @if (email.invalid && (email.dirty || email.touched)){
+                    <div class="text-danger">
+                        @if (email.errors?.['required']) {
+                            <div>Email requerido</div>
+                        }
+                        @if (email.errors?.['email']) {
+                            <div>Email no contiene un formato valido</div>
+                        }
+                    </div>                     
+                }
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+                @if (password.invalid && (password.dirty || password.touched)){
+                    <div class="text-danger">
+                        @if (password.errors?.['required']) {
+                            <div>Contraseña requerida</div>
+                        }
+                    </div>                     
+                }
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -19,3 +40,36 @@
     </div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- antes los if eran asi:
+<div *ngIf="email.invalid && (email.dirty || email.touched)"
+ class="alert alert-danger">
+    <div *ngIf="email.errors?.['required']">
+        email requerido
+    </div>
+    <div *ngIf="email.errors?.['minlength']">
+        la longitud debe ser mayor a 5
+    </div>
+    <div *ngIf="email.errors?.['forbiddenName']">
+        no se puede usar ese nombre
+    </div>     
+</div> -->
