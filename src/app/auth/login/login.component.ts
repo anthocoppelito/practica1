@@ -21,7 +21,7 @@ export class LoginComponent {
 
   constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService){
     this.loginForm= this.formBuilder.group({
-      email:['admin@coppel.com',[Validators.required, Validators.email]],
+      email:['',[Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
   }

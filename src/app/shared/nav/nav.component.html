@@ -8,9 +8,10 @@
             <div class="navbar-nav">
                 <a class="nav-link active" routerLink="">Inicio</a>
                 @if (userLoginOn) {
-                    <a class="nav-link" routerLink="">Cerrar sesion</a>
+                    <a class="nav-link" routerLink="/inicio" (click)="cerrarSesion()">Cerrar sesion</a>
                 }
                 @if (!userLoginOn) {
+                    
                     <a class="nav-link" routerLink="/login" >Iniciar sesion</a>
                 }
             </div>

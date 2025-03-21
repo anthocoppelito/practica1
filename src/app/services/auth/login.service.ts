@@ -41,4 +41,14 @@ export class LoginService {
   get UserLoginOn():Observable<boolean>{
     return this.currentUserLoginOn.asObservable();
   }
+
+  //cerrarsesion- pone el currentUserLogin en false para todos los componentes a los cuales estan suscritos a el
+  setUserCerrarSesion() {
+    this.currentUserLoginOn.next(false);
+  }
+
+  //vaciarInfoUsuario
+  setCleanUserData(){
+    this.currentUserData.next({id:0,email:''})
+  }
 }

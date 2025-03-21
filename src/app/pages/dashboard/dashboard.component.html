@@ -1,8 +1,13 @@
-<app-nav></app-nav>
-@if(userLoginOn){
-    <p>Bienvenido de vuelta</p>
-}
-@else {
-    <p>USUARIO NO AUTENTICADO</p>
-}
+<div class="container">
+    @if(userLoginOn){
+        <p>Bienvenido de vuelta</p>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    }
+    @if(!userLoginOn) {
+        <p>Inicia sesion en el boton "iniciar sesion"</p>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    }
+
+</div>
+
 

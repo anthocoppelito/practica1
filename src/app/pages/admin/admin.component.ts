@@ -9,7 +9,7 @@ import { User } from '../../services/auth/user';
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })
-export class AdminComponent implements OnInit, OnDestroy {
+export class AdminComponent implements OnInit {
 
   //variable local
   userLoginOn: boolean = false;
@@ -17,10 +17,10 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   // inyectar servicio
   constructor(private loginService: LoginService){}
-  ngOnDestroy(): void {
-    this.loginService.currentUserData.unsubscribe();
-    this.loginService.currentUserLoginOn.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.loginService.currentUserData.unsubscribe();
+  //   this.loginService.currentUserLoginOn.unsubscribe();
+  // }
 
   ngOnInit(): void {
     //se suscribe al observable, y al obtener cambios se haran aqui tambien

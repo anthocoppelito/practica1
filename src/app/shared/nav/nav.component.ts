@@ -10,16 +10,16 @@ import { LoginService } from '../../services/auth/login.service';
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
-export class NavComponent implements OnInit, OnDestroy{
+export class NavComponent implements OnInit{
 
 
   userLoginOn: boolean = false;
   constructor(private loginService: LoginService){}
 
-  ngOnDestroy(): void {
-    this.loginService.currentUserData.unsubscribe();
-    this.loginService.currentUserLoginOn.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.loginService.currentUserData.unsubscribe();
+  //   this.loginService.currentUserLoginOn.unsubscribe();
+  // }
 
   ngOnInit(): void {
     this.loginService.currentUserLoginOn.subscribe(
@@ -29,6 +29,11 @@ export class NavComponent implements OnInit, OnDestroy{
         }
       }
     )
+  }
+
+  cerrarSesion(){
+    this.loginService.setCleanUserData();//limpiar info de usuario
+    this.loginService.setUserCerrarSesion();//cerrar sesion
   }
 
 }

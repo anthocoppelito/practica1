@@ -1,8 +1,21 @@
-<app-header></app-header>
-<!-- muestra el componente segun la ruta -->
- <app-nav></app-nav>
-<router-outlet/> 
-<!-- clase de bootstrap -->
-<div class="fixed-bottom"> 
-    <app-footer></app-footer>
+<div class="pagina">
+    <div class="container-header">
+        <app-header></app-header>
+    </div>
+    
+    <!-- muestra el componente segun la ruta -->
+    <div class="container-nav">
+        <app-nav></app-nav>
+    </div>
+     
+    <div class="container-body">
+        <router-outlet/> 
+    </div>
+    
+    <!-- clase de bootstrap -->
+    <div class ="container-footer">
+        <app-footer/>
+    </div>
 </div>
+
+
