@@ -1,0 +1,24 @@
+# Configuración del editor
+.editorconfig
+
+# Archivos y carpetas innecesarias
+/node_modules
+/dist
+/e2e
+/docs
+
+# Archivos de control de versiones
+.git
+.gitignore
+
+# Archivos de configuración de Docker
+Dockerfile
+docker-compose.yml
+
+# Archivos comprimidos y temporales
+*.zip
+*.log
+*.tmp
+
+# Archivos Markdown
+*.md

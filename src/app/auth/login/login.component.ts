@@ -35,8 +35,8 @@ export class LoginComponent {
   }
 
   login(){
-    if(this.loginForm.valid){
-      console.log("Validacion exitosa")
+    if(this.loginForm.valid){//valida que los validators sean true
+      console.log("Validaciones exitosas")
       this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
         next:(userData) => {
             console.log(userData);
