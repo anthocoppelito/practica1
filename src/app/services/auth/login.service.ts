@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LoginRequest } from './loginRequest';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
 import { User } from './user';
+import { environment } from '../../../assets/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +11,28 @@ import { User } from './user';
 export class LoginService {
 
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  currentUserData: BehaviorSubject<User> = new BehaviorSubject<User>({id:0,email:''});
+  currentUserData: BehaviorSubject<String> = new BehaviorSubject<String>("");
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.currentUserLoginOn = new BehaviorSubject<boolean>(sessionStorage.getItem("token")!=null);
+    this.currentUserData = new BehaviorSubject<String>(sessionStorage.getItem("token") || "");
+  }
 
-  login(credentials:LoginRequest):Observable<User>{
-    return this.http.get<User>('../../../assets/data.json').pipe(
-      tap( userData => {
-        this.currentUserData.next(userData);
+  login(credentials:LoginRequest):Observable<any>{
+    return this.http.post<any>(environment.urlHost+"auth/login",credentials).pipe(
+      tap( (userData) => {
+        sessionStorage.setItem("token",userData.token);
+        this.currentUserData.next(userData.token);
         this.currentUserLoginOn.next(true);
       }),
+      map((userData)=> userData.token),
       catchError(this.handleError)
     )
     //console.log(credentials)
+  }
+  logout():void{
+    sessionStorage.removeItem("token");
+    this.currentUserLoginOn.next(false);
   }
 
   private handleError(error: HttpErrorResponse){
@@ -34,7 +44,7 @@ export class LoginService {
     return throwError(()=> new Error('Algo fallo, intenta nuevamente'));
 
   }
-  get userData():Observable<User>{
+  get userData():Observable<String>{
     return this.currentUserData.asObservable();
   }
 
@@ -48,7 +58,7 @@ export class LoginService {
   }
 
   //vaciarInfoUsuario
-  setCleanUserData(){
-    this.currentUserData.next({id:0,email:''})
-  }
+  // setCleanUserData(){
+  //   this.currentUserData.next({id:0,username:''})
+  // }
 }

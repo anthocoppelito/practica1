@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
 import { LoginRequest } from '../../services/auth/loginRequest';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,15 +20,15 @@ export class LoginComponent {
 
   
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService){
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService){
     this.loginForm= this.formBuilder.group({
-      email:['',[Validators.required, Validators.email]],
+      username:['',[Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
   }
 
   get email(){
-    return this.loginForm.controls['email'];
+    return this.loginForm.controls['username'];
   }
 
   get password(){
@@ -35,41 +36,30 @@ export class LoginComponent {
   }
 
   login(){
-    if(this.loginForm.valid){//valida que los validators sean true
-      console.log("Validaciones exitosas")
-      this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
-        next:(userData) => {
-            console.log(userData);
+    if (this.loginForm.valid) { // Valida que los validators sean true
+      console.log("Validaciones exitosas");
+      this.authService.login(this.loginForm.value as LoginRequest).subscribe({
+        next: (response) => {
+          console.log("Token recibido:", response.token);
+          this.authService.saveToken(response.token); // Guardar el token en localStorage
+          this.router.navigate(['/inicio']); // Redirigir a la página de inicio
         },
-        error:(errorData)=>{
-          console.error(errorData);
-          this.loginError=errorData;
+        error: (error) => {
+          console.error("Error en el login:", error);
+          this.loginError = "Credenciales incorrectas. Inténtalo de nuevo.";
         },
-        complete:()=>{
-          console.info("Login completo")
-          const email = this.loginForm.get('email')?.value;
-          if (email === 'admin@coppel.com') {
-            this.router.navigate(['/admin']);
-          } else if (email === 'cajero@coppel.com') {
-            this.router.navigate(['/cajero']);
-          } else if (email === 'bodega@coppel.com') {
-            this.router.navigate(['/bodega']);
-          } else {
-            alert("Usuario no válido");
-          }
-      this.loginForm.reset();
+        complete: () => {
+          console.info("Login completo");
+          this.loginForm.reset();
         }
       });
-      
-
-      
-      
-    }else{
-      // marca todas como tocadas
-      this.loginForm.markAllAsTouched(); 
-      alert("Los datos ingresados no son validos")
+    } else {
+      // Marca todas como tocadas
+      this.loginForm.markAllAsTouched();
+      alert("Los datos ingresados no son válidos");
     }
   }
+
 }
 
 // es importante poner ! en el loginform para que diga que no sera vacio

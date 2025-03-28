@@ -13,7 +13,7 @@ export class AdminComponent implements OnInit {
 
   //variable local
   userLoginOn: boolean = false;
-  userData?:User;
+  
 
   // inyectar servicio
   constructor(private loginService: LoginService){}
@@ -32,13 +32,7 @@ export class AdminComponent implements OnInit {
       }
     );
 
-    this.loginService.currentUserData.subscribe(
-      {
-        next: (userData) => {
-          this.userData=userData;
-        }
-      }
-    );
+    
   }
 
 }

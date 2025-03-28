@@ -1,8 +1,7 @@
 export interface User{
     id:number;
-    name?:string;
+    username:string;
     lastName?:string;
-    email:string;
-    message?:string;
-    rol?:string;
+    firstname?:string;
+    country?:string;
 }

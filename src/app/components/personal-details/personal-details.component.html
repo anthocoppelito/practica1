@@ -1,0 +1,12 @@
+<p>personal-details works!</p>
+@if(errorMessage.length){
+    <div class="text-danger">
+        <p>{{errorMessage}}</p>
+    </div>
+}
+<div class="container">
+    <p><b>Nombre: </b>{{user?.firstname}}</p>
+    <p><b>Apellido: </b>{{user?.lastName}}</p>
+    <p><b>Pais: </b>{{user?.country}}</p>
+</div>
+
