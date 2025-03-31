@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavComponent } from "../../shared/nav/nav.component";
 import { LoginService } from '../../services/auth/login.service';
 import { PersonalDetailsComponent } from "../../components/personal-details/personal-details.component";
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,11 +14,11 @@ import { PersonalDetailsComponent } from "../../components/personal-details/pers
 export class DashboardComponent implements OnInit {
 
   userLoginOn: boolean = false;
-  constructor(private loginService: LoginService){}
+  constructor(private authService: AuthService){}
 
   
   ngOnInit(): void {
-    this.loginService.currentUserLoginOn.subscribe(
+    this.authService.currentUserLoginOn.subscribe(
       { 
         next: (userLoginOn) => {
           this.userLoginOn=userLoginOn;

@@ -6,14 +6,39 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" routerLink="">Inicio</a>
+                
                 @if (userLoginOn) {
+                    <a class="nav-link active" routerLink="">Inicio</a>
+
+                    @if (userRole=='ADMIN'){
+                        <a class="nav-link" routerLink="/admin" >Admin</a>
+    
+                    }
+    
+                    @if (userRole=='CAJERO'){
+                        <a class="nav-link" routerLink="/cajero" >Cajero</a>
+    
+                    }
+    
+                    @if (userRole=='BODEGA'){
+                        <a class="nav-link" routerLink="/bodega" >Bodega</a>
+    
+                    }
+    
+                    @if (userRole=='USER'){
+                        <a class="nav-link" routerLink="" >Usuario</a>
+                        
+    
+                    }
+
                     <a class="nav-link" routerLink="/inicio" (click)="cerrarSesion()">Cerrar sesion</a>
                 }
                 @if (!userLoginOn) {
                     
                     <a class="nav-link" routerLink="/login" >Iniciar sesion</a>
                 }
+
+                
             </div>
         </div>
     </div>

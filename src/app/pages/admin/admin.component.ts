@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoginService } from '../../services/auth/login.service';
 import { User } from '../../services/auth/user';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -13,26 +14,19 @@ export class AdminComponent implements OnInit {
 
   //variable local
   userLoginOn: boolean = false;
-  
 
   // inyectar servicio
-  constructor(private loginService: LoginService){}
-  // ngOnDestroy(): void {
-  //   this.loginService.currentUserData.unsubscribe();
-  //   this.loginService.currentUserLoginOn.unsubscribe();
-  // }
+  constructor(private authService: AuthService){}
 
   ngOnInit(): void {
     //se suscribe al observable, y al obtener cambios se haran aqui tambien
-    this.loginService.currentUserLoginOn.subscribe(
+    this.authService.currentUserLoginOn.subscribe(
       {
         next: (userLoginOn) => {
           this.userLoginOn=userLoginOn;
         }
       }
     );
-
-    
   }
 
 }

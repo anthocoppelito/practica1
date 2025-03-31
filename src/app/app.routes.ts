@@ -11,8 +11,8 @@ export const routes: Routes = [
     {path: 'inicio', component: DashboardComponent, canActivate: [authGuard]}, // Ruta protegida
     {path: 'login', component: LoginComponent},
     {path: 'admin', component: AdminComponent, canActivate: [authGuard]},
-    {path: 'cajero', component: CajeroComponent},
-    {path: 'bodega', component: BodegaComponent},
+    {path: 'cajero', component: CajeroComponent, canActivate: [authGuard]},
+    {path: 'bodega', component: BodegaComponent, canActivate: [authGuard]},
     {path: 'test', component: TestComponent},
     // si no insertas alguna ruta definada, te redirige a inicio
     {path: '**', redirectTo: '/inicio', pathMatch: 'full'} 

@@ -20,6 +20,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.status === 401) {
         // Token expirado o inválido
         localStorage.removeItem('authToken'); // Eliminar el token
+        console.log('interceptor: token expiro')
         router.navigate(['/login']); // Redirigir al login
       }
       return throwError(() => error);

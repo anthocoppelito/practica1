@@ -8,6 +8,7 @@ export const authGuard = () => {
   if (token) {
     return true; // Permitir acceso si el token está presente
   } else {
+    console.log('guard: token no existente')
     router.navigate(['/login']); // Redirigir al login si no hay token
     return false;
   }
