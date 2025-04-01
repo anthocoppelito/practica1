@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="register">
+        <form [formGroup]="registerForm">
+            <p class="text-danger">{{registerError}}</p>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Usuario</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username"> 
+                @if (email.invalid && (email.dirty || email.touched)){
+                    <div class="text-danger">
+                        @if (email.errors?.['required']) {
+                            <div>Email requerido</div>
+                        }
+                        @if (email.errors?.['email']) {
+                            <div>Email no contiene un formato valido</div>
+                        }
+                    </div>                     
+                }
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+                @if (password.invalid && (password.dirty || password.touched)){
+                    <div class="text-danger">
+                        @if (password.errors?.['required']) {
+                            <div>Contraseña requerida</div>
+                        }
+                    </div>                     
+                }
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" formControlName="firstname">
+                @if (firstname.invalid && (firstname.dirty || firstname.touched)){
+                    <div class="text-danger">
+                        @if (firstname.errors?.['required']) {
+                            <div>Nombre requerido</div>
+                        }
+                    </div>                     
+                }
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" formControlName="lastname">
+                @if (lastname.invalid && (lastname.dirty || lastname.touched)){
+                    <div class="text-danger">
+                        @if (lastname.errors?.['required']) {
+                            <div>Apellido requerido</div>
+                        }
+                    </div>                     
+                }
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Pais</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" formControlName="country">
+                @if (country.invalid && (country.dirty || country.touched)){
+                    <div class="text-danger">
+                        @if (country.errors?.['required']) {
+                            <div>Pais requerido</div>
+                        }
+                    </div>                     
+                }
+            </div>
+            
+            <button type="submit" class="btn btn-primary" (click)="register()">Registrar</button>
+        </form>
+    </div>
+</div>

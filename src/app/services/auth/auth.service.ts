@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LoginRequest } from './loginRequest';
 import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { RegisterRequest } from './registerRequest';
 
 
 
@@ -19,7 +20,8 @@ export interface JwtPayload {
 })
 export class AuthService {
 
-  private urlAuth = environment.urlHost + 'auth/login'
+  private urlLoginAuth = environment.urlHost + 'auth/login'
+  private urlRegisterAuth = environment.urlHost + 'auth/register'
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   userRoleSubject = new BehaviorSubject<string | null>(null); // BehaviorSubject para el rol
   userRole$ = this.userRoleSubject.asObservable(); // Observable para el rol
@@ -36,8 +38,12 @@ export class AuthService {
     this.userRoleSubject.next(role); // Actualiza el BehaviorSubject
   }
 
+  register(registerRequest: RegisterRequest): Observable<{ token: string }> {
+    return this.http.post<{ token: string }>(this.urlRegisterAuth, registerRequest);
+  }
+
   login(loginRequest: LoginRequest): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(this.urlAuth, loginRequest).pipe(
+    return this.http.post<{ token: string }>(this.urlLoginAuth, loginRequest).pipe(
       tap((userData) => {
         this.saveToken(userData.token);
         this.currentUserLoginOn.next(true);

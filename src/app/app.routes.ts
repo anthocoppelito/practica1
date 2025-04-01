@@ -7,7 +7,7 @@ import { BodegaComponent } from './pages/bodega/bodega.component';
 import { TestComponent } from './components/tests/test/test.component';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
-import { AccesoDenegadoComponent } from './components/acceso-denegado/acceso-denegado.component';
+import { AccesoDenegadoComponent } from './components/public/acceso-denegado/acceso-denegado.component';
 
 export const routes: Routes = [
     {path: 'inicio', component: DashboardComponent, canActivate: [authGuard]}, // Ruta protegida por login

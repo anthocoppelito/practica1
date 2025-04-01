@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { User } from '../../services/auth/user';
-import { UserService } from '../../services/user/user.service';
-import { environment } from '../../../assets/environments/environment';
-import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../../services/auth/user';
+import { UserService } from '../../../services/user/user.service';
+import { environment } from '../../../../assets/environments/environment';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-personal-details',

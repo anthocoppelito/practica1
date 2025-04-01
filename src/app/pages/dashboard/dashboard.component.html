@@ -1,15 +1,11 @@
 <div class="container">
     @if(userLoginOn){
-        <p>Bienvenido de vuelta</p>
-        <!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
+        <p>Bienvenido de vuelta {{user2?.firstname}}!</p>
     }
     @if(!userLoginOn) {
         <p>Inicia sesion en el boton "iniciar sesion"</p>
-        <!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
     }
 
-    
-    
     <div class="card">
         <div class="card-header">
             Datos
