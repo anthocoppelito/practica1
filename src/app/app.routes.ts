@@ -6,13 +6,16 @@ import { CajeroComponent } from './pages/cajero/cajero.component';
 import { BodegaComponent } from './pages/bodega/bodega.component';
 import { TestComponent } from './components/tests/test/test.component';
 import { authGuard } from './guards/auth.guard';
+import { roleGuard } from './guards/role.guard';
+import { AccesoDenegadoComponent } from './components/acceso-denegado/acceso-denegado.component';
 
 export const routes: Routes = [
-    {path: 'inicio', component: DashboardComponent, canActivate: [authGuard]}, // Ruta protegida
+    {path: 'inicio', component: DashboardComponent, canActivate: [authGuard]}, // Ruta protegida por login
     {path: 'login', component: LoginComponent},
-    {path: 'admin', component: AdminComponent, canActivate: [authGuard]},
-    {path: 'cajero', component: CajeroComponent, canActivate: [authGuard]},
-    {path: 'bodega', component: BodegaComponent, canActivate: [authGuard]},
+    {path: 'access-denied', component: AccesoDenegadoComponent},
+    {path: 'admin', component: AdminComponent, canActivate: [authGuard, () => roleGuard('ADMIN')]}, // Ruta protegida por rol
+    {path: 'cajero', component: CajeroComponent, canActivate: [authGuard, () => roleGuard('CAJERO')]},
+    {path: 'bodega', component: BodegaComponent, canActivate: [authGuard, () => roleGuard('BODEGA')]},
     {path: 'test', component: TestComponent},
     // si no insertas alguna ruta definada, te redirige a inicio
     {path: '**', redirectTo: '/inicio', pathMatch: 'full'} 
