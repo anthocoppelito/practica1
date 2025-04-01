@@ -1,6 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LoginService } from '../../services/auth/login.service';
-import { User } from '../../services/auth/user';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({

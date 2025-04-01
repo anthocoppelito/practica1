@@ -82,6 +82,18 @@ export class AuthService {
     }
   }
 
+  getUserFromToken(): string {
+    const token = this.getToken(); // Obtén el token del localStorage
+    if (token){
+      const decodedToken = jwtDecode<JwtPayload>(token);
+      return decodedToken.sub;
+    }else{
+      return "null"; // Si no hay token, retorna null
+    }
+  }
+
+
+
 }
 
 // sessionStorage es informacion temporal, y al cerrar la pestaña se elimina
