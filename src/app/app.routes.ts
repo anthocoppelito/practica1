@@ -13,9 +13,9 @@ export const routes: Routes = [
     {path: 'inicio', component: DashboardComponent, canActivate: [authGuard]}, // Ruta protegida por login
     {path: 'login', component: LoginComponent},
     {path: 'access-denied', component: AccesoDenegadoComponent},
-    {path: 'admin', component: AdminComponent, canActivate: [authGuard, () => roleGuard('ADMIN')]}, // Ruta protegida por rol
-    {path: 'cajero', component: CajeroComponent, canActivate: [authGuard, () => roleGuard('CAJERO')]},
-    {path: 'bodega', component: BodegaComponent, canActivate: [authGuard, () => roleGuard('BODEGA')]},
+    {path: 'admin', component: AdminComponent, canActivate: [authGuard, () => roleGuard(['ADMIN'])]}, // Ruta protegida por rol
+    {path: 'cajero', component: CajeroComponent, canActivate: [authGuard, () => roleGuard(['CAJERO','ADMIN'])]},
+    {path: 'bodega', component: BodegaComponent, canActivate: [authGuard, () => roleGuard(['BODEGA','ADMIN'])]},
     {path: 'test', component: TestComponent},
     // si no insertas alguna ruta definada, te redirige a inicio
     {path: '**', redirectTo: '/inicio', pathMatch: 'full'} 

@@ -2,14 +2,15 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
 
-export const roleGuard = (expectedRole: string) => {
+//ahora recibimos un array de roles
+export const roleGuard = (expectedRoles: string[]) => {
   const router = inject(Router); // Inyectar el Router
   //const token = localStorage.getItem('authToken'); // Obtener el token del localStorage
   const authService = inject(AuthService); // Inyectar el AuthService
   const userRole = authService.getRoleFromToken(); // Obtener el rol desde el servicio
 
-
-  if (userRole === expectedRole) {
+//si el rol esta incluido en el arreglo, permite acceso
+  if (expectedRoles.includes(userRole)) {
     return true; // Permitir acceso si el rol coincide
   } else if (userRole === "null") {
     console.log('guard: token no existente o inválido');

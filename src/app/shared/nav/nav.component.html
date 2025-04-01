@@ -15,12 +15,12 @@
     
                     }
     
-                    @if (userRole=='CAJERO'){
+                    @if (userRole=='CAJERO' || userRole=='ADMIN' ){
                         <a class="nav-link" routerLink="/cajero" >Cajero</a>
     
                     }
     
-                    @if (userRole=='BODEGA'){
+                    @if (userRole=='BODEGA' || userRole=='ADMIN' ){
                         <a class="nav-link" routerLink="/bodega" >Bodega</a>
     
                     }
