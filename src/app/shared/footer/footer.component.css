@@ -1,3 +1,9 @@
 footer{
-    background-color: rgb(36, 67, 206);
+    background-color: rgb(0, 50, 144);
+}
+
+.p-2{
+    margin-top: 20px;
+    line-height: 0.5;
+
 }

@@ -8,10 +8,10 @@
                 @if (email.invalid && (email.dirty || email.touched)){
                     <div class="text-danger">
                         @if (email.errors?.['required']) {
-                            <div>Email requerido</div>
+                            <div>Usuario requerido</div>
                         }
                         @if (email.errors?.['email']) {
-                            <div>Email no contiene un formato valido</div>
+                            <div>Usuario no contiene un formato valido</div>
                         }
                     </div>                     
                 }

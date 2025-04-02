@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { LoginRequest } from '../../services/auth/loginRequest';
 import { AuthService } from '../../services/auth/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +20,18 @@ export class LoginComponent {
 
   
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService){
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router, 
+    private authService: AuthService,
+    private titleService: Title
+  ){
     this.loginForm= this.formBuilder.group({
       username:['',[Validators.required, Validators.email]],
       password: ['', Validators.required]
-    })
+    });
+
+    this.titleService.setTitle('Iniciar sesión'); //poner titulo
   }
 
   get email(){

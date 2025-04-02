@@ -1,0 +1,20 @@
+.card{
+    margin-left: 65%;
+    margin-right: 5%;
+    margin-top: 70px;
+    margin-bottom: 50px;
+}
+
+.card p {
+    
+    margin-bottom: 0px; /* Reduce el margen inferior */
+    line-height: 1.8; /* Ajusta la altura de línea para mejorar la legibilidad */
+    text-align: center; /* Centra el texto */
+  }
+
+  button{
+    /* background-color:rgba(red, green, blue, alpha); */
+    width: 100%;
+    height: 50px;
+    margin-bottom: 30px;
+  }

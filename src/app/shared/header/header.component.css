@@ -1,8 +1,15 @@
 header{
-    background: url(https://images.pexels.com/photos/2519175/pexels-photo-2519175.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)
+    /* background: url(https://images.pexels.com/photos/2519175/pexels-photo-2519175.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1) */
+    background-color: rgba(255,221,53,255);
+    /* amarillo */
 }
 
 .titulo {
     font-size: 4rem !important;
 
 }
+
+.imglogo{
+    margin-left: 30px;
+}
+
