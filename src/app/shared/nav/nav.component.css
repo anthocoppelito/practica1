@@ -1,0 +1,17 @@
+
+
+.cerrarSesion {
+    margin-left: auto; /* Empuja el contenedor hacia la derecha */
+    display: flex; /* Asegura que el contenido interno se alinee correctamente */
+    align-items: center; /* Centra verticalmente los elementos dentro de .cerrarSesion */
+    gap: 10px; /* Espaciado entre los elementos internos */
+    text-align: right; /* Alinea el texto a la derecha */
+    cursor: pointer;
+}
+
+.cerrarSesion a {
+    line-height: 1.5; /* Ajusta la altura de línea para el enlace */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    color: #000; /* Color del texto */
+    
+}

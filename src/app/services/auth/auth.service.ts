@@ -23,19 +23,27 @@ export class AuthService {
   private urlLoginAuth = environment.urlHost + 'auth/login'
   private urlRegisterAuth = environment.urlHost + 'auth/register'
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   userRoleSubject = new BehaviorSubject<string | null>(null); // BehaviorSubject para el rol
   userRole$ = this.userRoleSubject.asObservable(); // Observable para el rol
+
+  userNameSubject = new BehaviorSubject<string | null>(null); // BehaviorSubject para el username
+  userName$ = this.userNameSubject.asObservable(); // Observable para el rol
   
-
   constructor(private http: HttpClient, private router: Router) {
-
     this.currentUserLoginOn = new BehaviorSubject<boolean>(localStorage.getItem("authToken")!=null);
     this.updateUserRole(); // Inicializa el rol del usuario al cargar el servicio
-   }
+    this.updateUserName(); // Inicializa el username del usuario al cargar el servicio
+  }
 
-   updateUserRole(): void {
+  updateUserRole(): void {
     const role = this.getRoleFromToken(); // Obtén el rol desde el token
     this.userRoleSubject.next(role); // Actualiza el BehaviorSubject
+  }
+
+  updateUserName(): void {
+    const username = this.getUserFromToken(); // Obtén el username desde el token
+    this.userNameSubject.next(username); // Actualiza el BehaviorSubject
   }
 
   register(registerRequest: RegisterRequest): Observable<{ token: string }> {

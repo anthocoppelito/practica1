@@ -5,17 +5,19 @@ import { Router } from '@angular/router';
 import { LoginRequest } from '../../services/auth/loginRequest';
 import { AuthService } from '../../services/auth/auth.service';
 import { Title } from '@angular/platform-browser';
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RecaptchaModule, RecaptchaFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   loginForm!: FormGroup;
   loginError: string ="";
+  captchaToken: string | null = null; // Almacena el token del captcha
 
 
   
@@ -34,6 +36,11 @@ export class LoginComponent {
     this.titleService.setTitle('Iniciar sesión'); //poner titulo
   }
 
+  onCaptchaResolved(token: string | null) {
+    this.captchaToken = token; // Almacena el token generado por reCAPTCHA
+    console.log('Captcha resuelto:', token);
+  }
+
   get email(){
     return this.loginForm.controls['username'];
   }
@@ -43,7 +50,7 @@ export class LoginComponent {
   }
 
   login(){
-    if (this.loginForm.valid) { // Valida que los validators sean true
+    if (this.loginForm.valid && this.captchaToken) { // Valida que los validators sean true
       console.log("Validaciones exitosas");
       this.authService.login(this.loginForm.value as LoginRequest).subscribe({
         next: (response) => {
@@ -63,7 +70,11 @@ export class LoginComponent {
     } else {
       // Marca todas como tocadas
       this.loginForm.markAllAsTouched();
-      alert("Los datos ingresados no son válidos");
+      if (!this.captchaToken) {
+        alert("Por favor, completa el captcha. Si no lo visualizas, revisa tu conexión a internet.");
+      }else{
+        alert("Los datos ingresados no son válidos");
+      }
     }
   }
 

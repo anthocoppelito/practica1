@@ -1,36 +1,50 @@
 @if (userLoginOn){
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <!-- <a class="navbar-brand" href="#">Practica Coppel</a> -->
+            <!-- Lo siguiente al minimizar, se guarda todo en un boton  -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
     
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                
                 <div class="navbar-nav">
-                    <a class="nav-link active" routerLink="">Inicio</a>
+                        <!-- <a class="nav-link active" routerLink="">Inicio</a> -->
     
-                    @if (userRole=='ADMIN'){
-                        <a class="nav-link" routerLink="/admin" >Admin</a>
-                    }
+                        @if (userRole=='ADMIN'){
+                            <a class="nav-link" routerLink="/admin" >Admin</a>
+                        }
     
-                    @if (userRole=='CAJERO' || userRole=='ADMIN' ){
-                        <a class="nav-link" routerLink="/cajero" >Cajero</a>
-                    }
+                        @if (userRole=='CAJERO' || userRole=='ADMIN' ){
+                            <a class="nav-link" routerLink="/cajero" >Cajero</a>
+                        }
         
-                    @if (userRole=='BODEGA' || userRole=='ADMIN' ){
-                        <a class="nav-link" routerLink="/bodega" >Bodega</a>
-                    }
+                        @if (userRole=='BODEGA' || userRole=='ADMIN' ){
+                            <a class="nav-link" routerLink="/bodega" >Bodega</a>
+                        }
     
-                    @if (userRole=='USER'){
-                        <a class="nav-link" routerLink="" >Usuario</a>                
-                    }
+                        @if (userRole=='USER'){
+                            <a class="nav-link" routerLink="" >Usuario</a>                
+                        }
+                    
+                </div>
+                <div class="cerrarSesion">
+                    <div class="DatosPerfil" (click)="perfil()">
+                        <app-perfil></app-perfil>
+                    </div>
                     <a class="nav-link" routerLink="/inicio" (click)="cerrarSesion()">Cerrar sesion</a>
                 </div>
             </div>
         </div>
     </nav>
 }
+
+
+
+
+
+
+
 
     <!-- recordatorio
     el href es para rutas especificas (y recarga toda la pagina), 

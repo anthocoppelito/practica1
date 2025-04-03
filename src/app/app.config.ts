@@ -13,9 +13,15 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(
       withInterceptors([authInterceptor])
-    )// es necesario importar el provideHttpClient para poder usar las apis o conexiones en angular 17
+    )
+  ]
+};
+
+
+
+
+
+// es necesario importar el provideHttpClient para poder usar las apis o conexiones en angular 17
     // { provide: 'urlHost', useValue: 'http://localhost:8080' },// Agregar la URL del backend
     // { provide: 'urlApi', useValue: 'http://localhost:8080/api/v1' },
     // { provide: 'userId', useValue: 1 }
-  ]
-};

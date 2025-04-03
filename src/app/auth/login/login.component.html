@@ -35,10 +35,13 @@
                             </div>                     
                         }
                     </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">No soy un robot</label>
+                    <div class="mb-3">
+                        <re-captcha
+                          siteKey="6LesKwkrAAAAAJUmcFNwOuSd14SoJd3BjTdvEL7v" 
+                          (resolved)="onCaptchaResolved($event)">
+                        </re-captcha>
                     </div>
+
                     <button type="submit" class="btn btn-primary" (click)="login()">Iniciar sesion</button>
                     <p>¿Tienes un problema?</p>
                     <p>Contacta con un administrador</p>
