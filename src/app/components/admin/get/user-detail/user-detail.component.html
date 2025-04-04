@@ -1,0 +1,91 @@
+<div class="card">
+    <div class="card-header">
+        Editar el usuario
+    </div>
+    <div class="card-body m-0">
+        <form [formGroup]="userForm">
+            <p class="text-danger">{{userError}}</p>
+        
+            <div class="mb-4">
+                <label for="exampleInputEmail1" class="form-label">Usuario</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username">
+                
+                @if (username.invalid && (username.dirty || username.touched)){
+                    <div class="text-danger">
+                        @if (username.errors?.['required']) {
+                            <div>Usuario requerido</div>
+                        }
+                        @if (username.errors?.['email']) {
+                            <div>usuario no contiene un formato valido</div>
+                        }
+                    </div>                     
+                }
+            </div>
+        
+            <div class="mb-4">
+                <label for="exampleInputEmail1" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="firstname">
+                
+                @if (firstname.invalid && (firstname.dirty || firstname.touched)){
+                    <div class="text-danger">
+                        @if (firstname.errors?.['required']) {
+                            <div>Nombre requerido</div>
+                        }
+                    </div>                     
+                }
+            </div>
+        
+            <div class="mb-4">
+                <label for="exampleInputEmail1" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="lastname">
+                
+                @if (lastname.invalid && (lastname.dirty || lastname.touched)){
+                    <div class="text-danger">
+                        @if (lastname.errors?.['required']) {
+                            <div>Apellido requerido</div>
+                        }
+                    </div>                     
+                }
+            </div>
+        
+            <div class="mb-4">
+                <label for="exampleInputEmail1" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="country">
+                
+                @if (country.invalid && (country.dirty || country.touched)){
+                    <div class="text-danger">
+                        @if (country.errors?.['required']) {
+                            <div>País requerido</div>
+                        }
+                    </div>                     
+                }
+            </div>
+        
+            <div class="mb-4">
+                <label for="roleSelect" class="form-label">Rol</label>
+                <select class="form-control" id="roleSelect" formControlName="role">
+                    <option value="" disabled selected>Seleccione un rol</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="CAJERO">CAJERO</option>
+                    <option value="BODEGA">BODEGA</option>
+                    <option value="USER">USER</option>
+                </select>
+                
+                @if (role.invalid && (role.dirty || role.touched)){
+                    <div class="text-danger">
+                        @if (firstname.errors?.['required']) {
+                            <div>Rol requerido</div>
+                        }
+                    </div>                     
+                }
+            </div>
+            
+            <button type="submit" class="btn btn-primary" (click)="editar()">Editar informacion</button>
+        </form>
+        
+    </div>
+    <br>
+</div>
+
+
+

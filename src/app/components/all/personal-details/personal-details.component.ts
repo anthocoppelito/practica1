@@ -34,6 +34,13 @@ export class PersonalDetailsComponent {
       }
     })
 
+
+
+
+
+
+
+    
     this.userService.getUser(environment.userId).subscribe({
       next: (userData) => {
         this.user=userData;

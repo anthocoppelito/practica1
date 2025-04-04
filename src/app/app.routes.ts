@@ -8,12 +8,16 @@ import { TestComponent } from './components/tests/test/test.component';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 import { AccesoDenegadoComponent } from './components/public/acceso-denegado/acceso-denegado.component';
+import { UserDetailComponent } from './components/admin/get/user-detail/user-detail.component';
+import { RegisterComponent } from './components/admin/post/register/register.component';
 
 export const routes: Routes = [
     {path: 'perfil', component: DashboardComponent, canActivate: [authGuard]}, // Ruta protegida por login
     {path: 'login', component: LoginComponent},
     {path: 'access-denied', component: AccesoDenegadoComponent},
     {path: 'admin', component: AdminComponent, canActivate: [authGuard, () => roleGuard(['ADMIN'])]}, // Ruta protegida por rol
+    {path: 'admin/registrar', component: RegisterComponent, canActivate: [authGuard, () => roleGuard(['ADMIN'])]},
+    {path: 'admin/editar/:username', component: UserDetailComponent, canActivate: [authGuard, () => roleGuard(['ADMIN'])]},
     {path: 'cajero', component: CajeroComponent, canActivate: [authGuard, () => roleGuard(['CAJERO','ADMIN'])]},
     {path: 'bodega', component: BodegaComponent, canActivate: [authGuard, () => roleGuard(['BODEGA','ADMIN'])]},
     {path: 'test', component: TestComponent},

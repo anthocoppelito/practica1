@@ -1,0 +1,32 @@
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Usuario</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>País</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Usar @for con la sintaxis correcta -->
+        @for (user of users; track $index){
+          <tr>
+            <!-- <td>{{ user.id }}</td> -->
+            <td>{{ user.username }}</td>
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.country }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-primary" (click)="navegate(user.username)">Editar</button>
+            </td>
+          </tr>
+        }
+          
+      </tbody>
+    </table>
+</div>
