@@ -24,7 +24,7 @@ export class RegisterComponent {
     private _apiUser: UserService
   ){
       this.registerForm= this.formBuilder.group({
-        username:['',[Validators.required, Validators.email]],
+        username:['',[Validators.required, Validators.email, Validators.minLength(7), Validators.maxLength(50)]],
         password: ['', Validators.required],
         lastname: ['', Validators.required],
         firstname: ['', Validators.required],

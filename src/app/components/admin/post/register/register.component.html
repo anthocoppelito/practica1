@@ -17,6 +17,12 @@
                             @if (username.errors?.['email']) {
                                 <div>Usuario no contiene un formato valido</div>
                             }
+                            @if (username.errors?.['minlength']) {
+                                <div>Usuario debe tener al menos 7 caracteres</div>
+                            }
+                            @if (username.errors?.['maxlength']) {
+                                <div>Usuario debe tener maximo 40 caracteres</div>
+                            }
                         </div>                     
                     }
                 </div>

@@ -56,6 +56,9 @@ export class UserDetailComponent implements OnInit {
         });
       })
     });
+    if (this.role.value == 'ADMIN'){
+      alert("MODIFICAR INFORMACION DE UN ADMIN, PUEDE LLEVAR A UN ERROR EN EL SISTEMA");
+    }
   }
 
   get username(){

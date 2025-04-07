@@ -6,6 +6,7 @@ import { LoginRequest } from '../../services/auth/loginRequest';
 import { AuthService } from '../../services/auth/auth.service';
 import { Title } from '@angular/platform-browser';
 import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
+import { emailDomainValidator, invalidCharactersValidator, noSpacesValidator } from './validatorsLogin/validatorsLogin';
 
 @Component({
   selector: 'app-login',
@@ -29,11 +30,34 @@ export class LoginComponent {
     private titleService: Title
   ){
     this.loginForm= this.formBuilder.group({
-      username:['',[Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      username:['',
+        [
+          Validators.required, 
+          Validators.email, 
+          Validators.minLength(14),
+          Validators.maxLength(32),
+          emailDomainValidator('coppel.com'),//validador @algo.com
+          invalidCharactersValidator(),
+          noSpacesValidator()
+        ]
+      ],
+      password: ['',
+        [
+          Validators.required,
+          Validators.maxLength(50),
+
+        ]
+      ]
     });
 
     this.titleService.setTitle('Iniciar sesión'); //poner titulo
+
+    // Suscribirse a los cambios en el formulario
+    this.loginForm.valueChanges.subscribe(() => {
+      this.loginError = ''; // Vaciar loginError al interactuar con el formulario
+    });
+
+
   }
 
   onCaptchaResolved(token: string | null) {
@@ -71,9 +95,11 @@ export class LoginComponent {
       // Marca todas como tocadas
       this.loginForm.markAllAsTouched();
       if (!this.captchaToken) {
-        alert("Por favor, completa el captcha. Si no lo visualizas, revisa tu conexión a internet.");
+        //alert("Por favor, completa el captcha. Si no lo visualizas, revisa tu conexión a internet.");
+        this.loginError = "Por favor, completa el captcha. Si no lo visualizas, revisa tu conexión a internet.";
       }else{
-        alert("Los datos ingresados no son válidos");
+        //alert("Los datos ingresados no son válidos");
+        this.loginError = "Los datos ingresados no son válidos";
       }
     }
   }
