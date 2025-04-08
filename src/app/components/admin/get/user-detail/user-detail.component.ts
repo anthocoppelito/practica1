@@ -4,6 +4,7 @@ import { UserService } from '../../../../services/user/user.service';
 import { User } from '../../../../services/auth/user';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-detail',
@@ -31,11 +32,37 @@ export class UserDetailComponent implements OnInit {
     private _apiUser: UserService
   ) {
     this.userForm= this.formBuilder.group({
-      username:[{ value: '', disabled: true },[Validators.required, Validators.email]],
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      username:[{ value: '', disabled: true },
+        [
+          Validators.required, 
+          Validators.email
+        ]
+      ],
+      firstname: ['', 
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30),
+          Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/) // Solo letras y espacios y ñÑ y áéíóú
+        ]
+      ],
+      lastname: ['', 
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30),
+          Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/) // Solo letras y espacios y ñÑ
+        ]
+      ],
       role: ['', Validators.required],
-      country: ['', Validators.required]
+      country: ['', 
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30),
+          Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/) // Solo letras y espacios y ñÑ
+        ]
+      ],
     });
 
     this.titleService.setTitle('Detalles del usuario');
@@ -54,11 +81,20 @@ export class UserDetailComponent implements OnInit {
           role: this.user.role,
           country: this.user.country
         });
+        if (this.role.value == 'ADMIN'){
+          Swal.fire({
+            icon: 'warning',
+            title: 'Modificar el rol de un admin puede llevar a un error en el sistema',
+            text: 'Si necesitas cambiar el rol de un admin, contacte al soporte del sistema.',
+            confirmButtonText: 'Aceptar'
+          })
+          this.userForm.controls['role'].disable(); // Deshabilitar el campo de rol
+        }
+        
       })
     });
-    if (this.role.value == 'ADMIN'){
-      alert("MODIFICAR INFORMACION DE UN ADMIN, PUEDE LLEVAR A UN ERROR EN EL SISTEMA");
-    }
+    this.userForm.markAllAsTouched();
+    
   }
 
   get username(){
@@ -82,62 +118,99 @@ export class UserDetailComponent implements OnInit {
   }
 
   editar(){
-
     this.userForm.markAllAsTouched();
     if (this.userForm.valid){
-      this._apiUser.updateUser(this.username.value, this.userForm.value).subscribe({
-        next: (response) => {
-          switch(this.role.value){
-            case 'ADMIN':
-              this._apiUser.updateRoleAdmin(this.username.value).subscribe({
-                next: (response) => {
-                  console.log("Rol de admin actualizado");
-                },
-                error: (error) => {
-                  console.error("Error al actualizar el rol de admin:", error);
-                },
-                complete: () => {
-                  console.info("Rol de admin actualizado correctamente");
-                }
-              });
-              break;
-            case 'BODEGA':
-              this._apiUser.updateRoleBodega(this.username.value).subscribe({});
-              console.log(this.username.value + " " + this.role.value);
-              console.log("bodega")
-              break;
-            case 'CAJERO':
-              this._apiUser.updateRoleCajero(this.username.value).subscribe({});
-              console.log(this.username.value + " " + this.role.value);
-              console.log("cajero")
-              break;
-            case 'USER':
-              this._apiUser.updateRoleUser(this.username.value).subscribe({});
-              console.log(this.username.value + " " + this.role.value);
-              console.log("user")
-              break;
-            default:
-              console.error("Error al asignar el rol");
-              console.log(this.username.value + " " + this.role.value);
-              console.log("default")
-              break;
-          }
-          alert("Usuario editado correctamente")
-        },
-        error: (error) => {
-          console.error("Error en el login:", error);
-          this.userError = "Credenciales incorrectas. Inténtalo de nuevo.";
-        },
-        complete: () => {
-          console.info("Edicion finalizada");
-          this.router.navigate(['/admin']);
+      //rol
+      switch(this.role.value){
+        case 'ADMIN':
 
-          //this.userForm.reset();
-        }
-      });
+          Swal.fire({
+            icon: 'question',
+            title: '¿Estás seguro de cambiar informacion de un  admin?',
+            text: 'Recuerda que el rol de admin solo puede ser cambiado por soporte.',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this._apiUser.updateRoleAdmin(this.username.value).subscribe({});
+              this.actualizarUser();
+              Swal.fire({
+                icon: 'success',
+                title: 'Datos actualizados',
+                text: 'Se actualizaron los datos.',
+                confirmButtonText: 'Aceptar',
+              }).then(() => {
+                this.router.navigate(['/admin']);
+              })
+              
+              
+
+            }else{
+              Swal.fire({
+                icon: 'error',
+                title: 'Datos no aplicados',
+                text: 'Los cambios no fueron aplicados.',
+                confirmButtonText: 'Aceptar',
+              }).then(() => {
+                this.router.navigate(['/admin']);
+              })
+            }
+          })
+          
+          break;
+        case 'BODEGA':
+          this._apiUser.updateRoleBodega(this.username.value).subscribe({});
+          this.actualizarUser();
+          Swal.fire({
+            icon: 'success',
+            title: 'Datos actualizados',
+            text: 'Se actualizaron los datos.',
+            confirmButtonText: 'Aceptar',
+          }).then(() => {
+            this.router.navigate(['/admin']);
+          })
+          break;
+        case 'CAJERO':
+          this._apiUser.updateRoleCajero(this.username.value).subscribe({});
+          this.actualizarUser();
+          Swal.fire({
+            icon: 'success',
+            title: 'Datos actualizados',
+            text: 'Se actualizaron los datos.',
+            confirmButtonText: 'Aceptar',
+          }).then(() => {
+            this.router.navigate(['/admin']);
+          })
+          break;
+        case 'USER':
+          this._apiUser.updateRoleUser(this.username.value).subscribe({});
+          this.actualizarUser();
+          Swal.fire({
+            icon: 'success',
+            title: 'Datos actualizados',
+            text: 'Se actualizaron los datos.',
+            confirmButtonText: 'Aceptar',
+          }).then(() => {
+            this.router.navigate(['/admin']);
+          })
+          break;
+        default:
+          console.error("Error al asignar el rol");
+          break;
+      }
+
+      
+
     }
+
 
     
 
+    
   }
+  actualizarUser(){
+    this._apiUser.updateUser(this.username.value, this.userForm.value).subscribe({});
+  }
+
 }

@@ -61,6 +61,13 @@ export class UserService {
     )
   }
 
+  //verificar si usuario existe
+  checkUser(username:String):Observable<User>{
+    return this.http.get<User>(environment.urlApi+"user/admin/exists/"+username).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error:HttpErrorResponse){
     if(error.status===0){
       console.error('Se ha producio un error ', error.error);

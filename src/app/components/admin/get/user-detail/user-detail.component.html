@@ -8,7 +8,7 @@
         
             <div class="mb-4">
                 <label for="exampleInputEmail1" class="form-label">Usuario</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username"  maxlength="45">
                 
                 @if (username.invalid && (username.dirty || username.touched)){
                     <div class="text-danger">
@@ -24,12 +24,22 @@
         
             <div class="mb-4">
                 <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="firstname">
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="firstname" maxlength="35">
                 
                 @if (firstname.invalid && (firstname.dirty || firstname.touched)){
                     <div class="text-danger">
                         @if (firstname.errors?.['required']) {
                             <div>Nombre requerido</div>
+                        }@else {
+                            @if (firstname.errors?.['minlength']) {
+                                <div>Nombre muy corto</div>
+                            }
+                            @if (firstname.errors?.['maxlength']) {
+                                <div>Nombre muy largo</div>
+                            }
+                            @if (firstname.errors?.['pattern']) {
+                                <div>Caracteres no permitidos</div>
+                            }
                         }
                     </div>                     
                 }
@@ -37,25 +47,45 @@
         
             <div class="mb-4">
                 <label for="exampleInputEmail1" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="lastname">
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="lastname" maxlength="35">
                 
                 @if (lastname.invalid && (lastname.dirty || lastname.touched)){
                     <div class="text-danger">
                         @if (lastname.errors?.['required']) {
                             <div>Apellido requerido</div>
+                        }@else {
+                            @if (lastname.errors?.['minlength']) {
+                                <div>Apellido muy corto</div>
+                            }
+                            @if (lastname.errors?.['maxlength']) {
+                                <div>Apellido muy largo</div>
+                            }
+                            @if (lastname.errors?.['pattern']) {
+                                <div>Caracteres no permitidos</div>
+                            }
                         }
                     </div>                     
                 }
             </div>
         
             <div class="mb-4">
-                <label for="exampleInputEmail1" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="country">
+                <label for="exampleInputEmail1" class="form-label">Pais</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="country" maxlength="35">
                 
                 @if (country.invalid && (country.dirty || country.touched)){
                     <div class="text-danger">
                         @if (country.errors?.['required']) {
                             <div>País requerido</div>
+                        }@else {
+                            @if (country.errors?.['minlength']) {
+                                <div>País muy corto</div>
+                            }
+                            @if (country.errors?.['maxlength']) {
+                                <div>País muy largo</div>
+                            }
+                            @if (country.errors?.['pattern']) {
+                                <div>Caracteres no permitidos</div>
+                            }
                         }
                     </div>                     
                 }

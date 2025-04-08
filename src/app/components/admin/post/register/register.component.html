@@ -8,31 +8,51 @@
                 <p class="text-danger">{{registerError}}</p>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Usuario</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username"> 
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username" maxlength="45"> 
                     @if (username.invalid && (username.dirty || username.touched)){
                         <div class="text-danger">
                             @if (username.errors?.['required']) {
                                 <div>Usuario requerido</div>
                             }
                             @if (username.errors?.['email']) {
-                                <div>Usuario no contiene un formato valido</div>
+                                <div>Formato NO valido</div>
                             }
-                            @if (username.errors?.['minlength']) {
-                                <div>Usuario debe tener al menos 7 caracteres</div>
-                            }
-                            @if (username.errors?.['maxlength']) {
-                                <div>Usuario debe tener maximo 40 caracteres</div>
-                            }
+                            @else {
+                                @if (username.errors?.['noSpaces']){
+                                    <div>No se permiten espacios</div>
+                                }
+                                @if (username.errors?.['invalidDomain']){
+                                    <div>Solo se permite dominio coppel.com</div>
+                                }
+                                @else {
+                                    @if (username.errors?.['minlength']) {
+                                        <div>Usa al menos 3 caracteres ejemplo: abc&#64;coppel.com</div>
+                                    }
+                                    @if (username.errors?.['maxlength']) {
+                                        <div>Caracteres maximos alcanzados</div>
+                                    }
+                                    @if (username.errors?.['invalidCharacters']) {
+                                        <div>Caracteres no permitidos</div>
+                                    }
+                                }  
+                            }      
                         </div>                     
                     }
                 </div>
                 <div class="mb-3">
                     <label for="passwordlabel2" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="passwordlabel2" formControlName="password">
+                    <input type="password" class="form-control" id="passwordlabel2" formControlName="password" maxlength="45">
                     @if (password.invalid && (password.dirty || password.touched)){
                         <div class="text-danger">
                             @if (password.errors?.['required']) {
                                 <div>Contraseña requerida</div>
+                            }@else {
+                                @if (password.errors?.['minlength']) {
+                                    <div>Contraseña muy corta</div>
+                                }
+                                @if (password.errors?.['maxlength']) {
+                                    <div>Contraseña muy larga</div>
+                                }
                             }
                         </div>                     
                     }
@@ -40,11 +60,21 @@
     
                 <div class="mb-3">
                     <label for="namelabel" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="namelabel" formControlName="firstname">
+                    <input type="text" class="form-control" id="namelabel" formControlName="firstname" maxlength="35">
                     @if (firstname.invalid && (firstname.dirty || firstname.touched)){
                         <div class="text-danger">
                             @if (firstname.errors?.['required']) {
                                 <div>Nombre requerido</div>
+                            }@else {
+                                @if(firstname.errors?.['minlength']) {
+                                    <div>Nombre muy corto</div>
+                                }
+                                @if(firstname.errors?.['maxlength']) {
+                                    <div>Nombre muy largo</div>
+                                }
+                                @if(firstname.errors?.['pattern']) {
+                                    <div>Caracteres no permitidos</div>
+                                }
                             }
                         </div>                     
                     }
@@ -52,11 +82,21 @@
     
                 <div class="mb-3">
                     <label for="lastnamelabel" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" id="lastnamelabel" formControlName="lastname">
+                    <input type="text" class="form-control" id="lastnamelabel" formControlName="lastname" maxlength="35">
                     @if (lastname.invalid && (lastname.dirty || lastname.touched)){
                         <div class="text-danger">
                             @if (lastname.errors?.['required']) {
                                 <div>Apellido requerido</div>
+                            }@else {
+                                @if(lastname.errors?.['minlength']) {
+                                    <div>Apellido muy corto</div>
+                                }
+                                @if(lastname.errors?.['maxlength']) {
+                                    <div>Apellido muy largo</div>
+                                }
+                                @if(lastname.errors?.['pattern']) {
+                                    <div>Caracteres no permitidos</div>
+                                }
                             }
                         </div>                     
                     }
@@ -64,11 +104,21 @@
     
                 <div class="mb-3">
                     <label for="countrylabel" class="form-label">Pais</label>
-                    <input type="text" class="form-control" id="countrylabel" formControlName="country">
+                    <input type="text" class="form-control" id="countrylabel" formControlName="country" maxlength="35">
                     @if (country.invalid && (country.dirty || country.touched)){
                         <div class="text-danger">
                             @if (country.errors?.['required']) {
                                 <div>Pais requerido</div>
+                            }@else {
+                                @if(country.errors?.['minlength']) {
+                                    <div>País muy corto</div>
+                                }
+                                @if(country.errors?.['maxlength']) {
+                                    <div>País muy largo</div>
+                                }
+                                @if(country.errors?.['pattern']) {
+                                    <div>Caracteres no permitidos</div>
+                                }
                             }
                         </div>                     
                     }
