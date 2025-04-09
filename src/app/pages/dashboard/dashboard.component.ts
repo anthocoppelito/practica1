@@ -3,11 +3,12 @@ import { PersonalDetailsComponent } from "../../components/all/personal-details/
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../services/auth/user';
+import { ChangePasswordComponent } from "../../components/all/change-password/change-password.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [PersonalDetailsComponent],
+  imports: [PersonalDetailsComponent, ChangePasswordComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
