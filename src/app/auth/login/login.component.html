@@ -8,7 +8,7 @@
                     <p class="text-danger">{{loginError}}</p>
                     <div class="mb-4">
                         <label for="exampleInputEmail1" class="form-label">Usuario</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username" maxlength="35">
+                        <input type="email" class="form-control btn-user" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username" maxlength="35">
                         @if (email.untouched){
                             <div id="emailHelp" class="form-text">Nunca compartiremos tu correo electronico</div>
                         }
@@ -50,7 +50,7 @@
                         <div class="input-group">
                             <input [type]="passwordFieldType" class="form-control btn-pass" id="passwordlabel" formControlName="password" maxlength="55">
                             <button type="button" class="btn btn-outline-secondary btn-eye" (click)="togglePasswordVisibility()">
-                              <i class="fa" [ngClass]="{'fa-eye': passwordFieldType==='password', 'fa-eye-slash': passwordFieldType==='text'}"></i>
+                              <i class="fa" [ngClass]="{'fa-eye-slash': passwordFieldType==='password', 'fa-eye': passwordFieldType==='text'}"></i>
                             </button>
                         </div>
                         @if (password.invalid && (password.dirty || password.touched)){

@@ -26,8 +26,12 @@
     justify-content: center;
     width: 1%;
     height: 35px;
+    margin-bottom: 0px;
+  }
+  .btn-pass{
+    height: 100%;
   }
 
-  .btn-pass{
+  .btn-user{
     height: 100%;
   }
