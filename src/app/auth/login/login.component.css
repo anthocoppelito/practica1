@@ -18,3 +18,16 @@
     height: 50px;
     margin-bottom: 30px;
   }
+
+  .btn-eye {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1%;
+    height: 35px;
+  }
+
+  .btn-pass{
+    height: 100%;
+  }

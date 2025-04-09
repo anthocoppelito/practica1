@@ -19,6 +19,7 @@ export class LoginComponent {
   loginForm!: FormGroup;
   loginError: string ="";
   captchaToken: string | null = null; // Almacena el token del captcha
+  passwordFieldType: string = 'password';
 
 
   
@@ -102,6 +103,10 @@ export class LoginComponent {
         this.loginError = "Los datos ingresados no son válidos";
       }
     }
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
 }

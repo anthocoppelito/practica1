@@ -44,9 +44,15 @@
                         }
                         
                     </div>
+
                     <div class="mb-3">
                         <label for="passwordlabel" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="passwordlabel" formControlName="password" maxlength="55">
+                        <div class="input-group">
+                            <input [type]="passwordFieldType" class="form-control btn-pass" id="passwordlabel" formControlName="password" maxlength="55">
+                            <button type="button" class="btn btn-outline-secondary btn-eye" (click)="togglePasswordVisibility()">
+                              <i class="fa" [ngClass]="{'fa-eye': passwordFieldType==='password', 'fa-eye-slash': passwordFieldType==='text'}"></i>
+                            </button>
+                        </div>
                         @if (password.invalid && (password.dirty || password.touched)){
                             <div class="text-danger">
                                 @if (password.errors?.['required']) {
@@ -56,8 +62,7 @@
                                     <div>Sobrepasas el limite de caracteres</div>
                                 }
                             </div>                     
-                        }
-                        
+                        } 
                     </div>
                     <div class="mb-3">
                         <re-captcha
