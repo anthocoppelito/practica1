@@ -34,4 +34,36 @@ export class UserTableComponent implements OnInit {
 
   }
 
+  //obtener busqueda de usuarios segun la busqueda
+  buscar(busqueda: String){
+    if (busqueda=="" || busqueda =="*"){
+      this.userService.getAllUsers().subscribe({
+        next: (data) => {
+          this.users = data; // Asignar los usuarios a la variable
+        },
+        error: (err) => {
+          console.error('Error al obtener los usuarios:', err);
+        },
+      })
+    }else{
+      this.userService.getUserbySearch(busqueda).subscribe({
+        next: (data) => {
+          this.users = data;
+        },
+        error: (err) => {
+          console.error('Error al obtener los usuarios:', err);
+        },
+      });
+
+    }
+
+
+    
+
+
+
+  }
+
+
+
 }

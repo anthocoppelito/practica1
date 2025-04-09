@@ -1,3 +1,11 @@
+<div class="buscador">
+    <div class="input-group mb-4">
+        <button class="input-group-text" (click)="buscar(busqueda.value)">Buscar</button>
+        <input #busqueda type="text" class="form-control" (keyup.enter)="buscar(busqueda.value)" placeholder="Buscar por nombre o apellido">
+    </div>
+
+</div>
+
 <div class="table-container">
     <table>
       <thead>

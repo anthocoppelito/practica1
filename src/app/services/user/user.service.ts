@@ -30,6 +30,13 @@ export class UserService {
     )
   }
 
+  //getUsers by search
+  getUserbySearch(search:String):Observable<User[]>{
+    return this.http.get<User[]>(environment.urlApi+"user/admin/search/"+search).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   //actualizar usuario mediante username
   updateUser(username:String, user:User):Observable<User>{
     return this.http.put<User>(environment.urlApi+"user/admin/"+username, user).pipe(
