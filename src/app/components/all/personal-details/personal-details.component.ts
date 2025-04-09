@@ -30,7 +30,7 @@ export class PersonalDetailsComponent {
         this.errorMessage=errorData;
       },
       complete: () => {
-        console.info("Usuario nuevo ok");
+        //console.info("Usuario nuevo ok");
       }
     })
 
@@ -49,7 +49,7 @@ export class PersonalDetailsComponent {
         this.errorMessage=errorData;
       },
       complete: () =>{
-        console.info("User data ok");
+        //console.info("User data ok");
       }
     })
   }

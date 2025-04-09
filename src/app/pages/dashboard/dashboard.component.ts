@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
         this.errorMessage=errorData;
       },
       complete: () => {
-        console.info("Usuario nuevo ok");
+        //console.info("Usuario nuevo ok");
       }
     })
   }

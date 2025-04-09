@@ -30,7 +30,7 @@ export class PerfilComponent {
           this.errorMessage=errorData;
         },
         complete: () => {
-          console.info("Datos nav de perfil cargados correctamente");
+          //console.info("Datos nav de perfil cargados correctamente");
         }
       })
     }

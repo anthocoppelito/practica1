@@ -49,7 +49,7 @@ export class NavComponent implements OnInit {
     this.authService.userName$.subscribe({
       next: (username) => {
         this.nombreUsuario = username; // Actualiza el rol del usuario
-        console.log('username del usuario:', this.nombreUsuario);
+        //console.log('username del usuario:', this.nombreUsuario);
       }
     });
 
@@ -57,7 +57,7 @@ export class NavComponent implements OnInit {
     this.authService.userRole$.subscribe({
       next: (role) => {
         this.userRole = role; // Actualiza el rol del usuario
-        console.log('Rol del usuario:', role);
+        //console.log('Rol del usuario:', role);
       }
     });
 
@@ -70,7 +70,7 @@ export class NavComponent implements OnInit {
           this.errorMessage=errorData;
         },
         complete: () =>{
-          console.info("User data ok");
+          //console.info("User data ok");
         }
       }
     )
