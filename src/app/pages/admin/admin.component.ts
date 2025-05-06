@@ -40,7 +40,6 @@ export class AdminComponent implements OnInit {
 
   registrar(){
     this.router.navigate(['admin/registrar']);
-
   }
 
 }

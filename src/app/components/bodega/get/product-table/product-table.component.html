@@ -1,0 +1,33 @@
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Product ID</th>
+          <th>Descripcion</th>
+          <th>Categoria</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Usar @for con la sintaxis correcta -->
+        @for (product of products; track $index){
+          <tr>
+            <!-- <td>{{ user.id }}</td> -->
+            <td>{{ product.productname }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.stock }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-primary" (click)="editar(product.productname)">Editar</button>
+              <button type="button" class="btn btn-outline-primary" (click)="stock(product.stock)">Stock</button>
+            </td>
+          </tr>
+        }
+          
+      </tbody>
+    </table>
+</div>

@@ -1,0 +1,103 @@
+<div class="card">
+    <div class="card-header">
+        Registrar el producto
+    </div>
+    <div class="card-body m-0">
+        <div class="register">
+            <form [formGroup]="registerForm">
+                <p class="text-danger">{{registerError}}</p>
+
+                <div class="mb-3">
+                    <label for="productIDInput" class="form-label">Product ID</label>
+                    <input type="text" class="form-control" id="productIDInput" formControlName="productname" maxlength="35"> 
+                    @if (productname?.invalid && (productname?.dirty || productname?.touched)){
+                        <div class="text-danger">
+                            @if (productname?.errors?.['required']) {
+                                <div>ID del producto requerido</div>
+                            }
+                            @else {
+                                @if (productname?.errors?.['minlength']) {
+                                    <div>El ID es muy corto</div>
+                                }
+                                @if (productname?.errors?.['maxlength']) {
+                                    <div>Caracteres maximos alcanzados</div>
+                                }
+                            }   
+                        </div>                     
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="descripcionInput" class="form-label">Descripcion</label>
+                    <input type="text" class="form-control" id="descripcionInput" formControlName="description" maxlength="150"> 
+                    @if (description?.invalid && (description?.dirty || description?.touched)){
+                        <div class="text-danger">
+                            @if (description?.errors?.['required']) {
+                                <div>Descripcion requerida</div>
+                            }
+                            @else {
+                                @if (description?.errors?.['minlength']) {
+                                    <div>La descripcion es muy corta</div>
+                                }
+                                @if (productname?.errors?.['maxlength']) {
+                                    <div>La descripcion es muy larga</div>
+                                }
+                            }   
+                        </div>                     
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="CategoriaInput" class="form-label">Categoria</label>
+                    <input type="text" class="form-control" id="CategoriaInput" formControlName="category" maxlength="40"> 
+                    @if (category?.invalid && (category?.dirty || category?.touched)){
+                        <div class="text-danger">
+                            @if (category?.errors?.['required']) {
+                                <div>Categoria requerida</div>
+                            }
+                            @else {
+                                @if (category?.errors?.['minlength']) {
+                                    <div>La categoria es muy corta</div>
+                                }
+                                @if (category?.errors?.['maxlength']) {
+                                    <div>La categoria es muy larga</div>
+                                }
+                            }   
+                        </div>                     
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="PrecioInput" class="form-label">Precio</label>
+                    <input type="text" class="form-control" id="PrecioInput" formControlName="price" maxlength="20"> 
+                    @if (price?.invalid && (price?.dirty || price?.touched)){
+                        <div class="text-danger">
+                            @if (price?.errors?.['required']) {
+                                <div>Precio requerido</div>
+                            }                      
+                        </div>                     
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="StockInput" class="form-label">Stock</label>
+                    <input type="text" class="form-control" id="StockInput" formControlName="stock" maxlength="20"> 
+                    @if (stock?.invalid && (stock?.dirty || stock?.touched)){
+                        <div class="text-danger">
+                            @if (stock?.errors?.['required']) {
+                                <div>Stock requerido</div>
+                            }                      
+                        </div>                     
+                    }
+                </div>
+
+
+
+
+                
+                <button type="submit" class="btn btn-primary" (click)="register()">Registrar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
