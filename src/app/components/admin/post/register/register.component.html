@@ -7,7 +7,7 @@
             <form [formGroup]="registerForm">
                 <p class="text-danger">{{registerError}}</p>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Usuario</label>
+                    <label for="exampleInputEmail1" class="form-label">Usuario (correo)</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username" maxlength="45"> 
                     @if (username.invalid && (username.dirty || username.touched)){
                         <div class="text-danger">

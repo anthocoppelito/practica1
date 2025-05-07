@@ -1,0 +1,28 @@
+<div class="container mt-4">
+    <h2>Detalles de la Venta</h2>
+    <p><strong>ID de la Venta:</strong> {{ sale?.id }}</p>
+  
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>Nombre del Producto</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario</th>
+          <th>Total Producto</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of sale?.salesList; track $index){
+            <tr>
+                <td>{{ item.product.productname }}</td>
+                <td>{{ item.amount }}</td>
+                <td>{{ item.price | currency }}</td>
+                <td>{{ item.totalPrice | currency }}</td>
+              </tr>
+        }
+        
+      </tbody>
+    </table>
+  
+    <p class="mt-3"><strong>Total de la Venta:</strong> {{ sale?.totalPrice | currency }}</p>
+  </div>

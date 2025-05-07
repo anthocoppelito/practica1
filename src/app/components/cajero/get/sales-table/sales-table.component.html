@@ -1,0 +1,26 @@
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Sale ID</th>
+          <th>Precio total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Usar @for con la sintaxis correcta -->
+        @for (sale of sales; track $index){
+          <tr>
+            <!-- <td>{{ user.id }}</td> -->
+            <td>{{ sale.id }}</td>
+            <td>{{ sale.totalPrice }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-primary" (click)="detalle(sale.id)">Detalles</button>
+            </td>
+          </tr>
+        }
+          
+      </tbody>
+    </table>
+</div>

@@ -11,6 +11,8 @@ import { AccesoDenegadoComponent } from './components/public/acceso-denegado/acc
 import { UserDetailComponent } from './components/admin/get/user-detail/user-detail.component';
 import { RegisterComponent } from './components/admin/post/register/register.component';
 import { RegisterProductComponent } from './components/bodega/post/register-product/register-product.component';
+import { SalesDetailComponent } from './components/cajero/get/sales-detail/sales-detail.component';
+import { RegisterSaleComponent } from './components/cajero/post/register-sale/register-sale.component';
 
 export const routes: Routes = [
     {path: 'perfil', component: DashboardComponent, canActivate: [authGuard]}, // Ruta protegida por login
@@ -20,6 +22,8 @@ export const routes: Routes = [
     {path: 'admin/registrar', component: RegisterComponent, canActivate: [authGuard, () => roleGuard(['ADMIN'])]},
     {path: 'admin/editar/:username', component: UserDetailComponent, canActivate: [authGuard, () => roleGuard(['ADMIN'])]},
     {path: 'cajero', component: CajeroComponent, canActivate: [authGuard, () => roleGuard(['CAJERO','ADMIN'])]},
+    {path: 'cajero/registrar', component: RegisterSaleComponent, canActivate: [authGuard, () => roleGuard(['CAJERO','ADMIN'])]},
+    {path: 'cajero/detalle/:saleid', component: SalesDetailComponent, canActivate: [authGuard, () => roleGuard(['CAJERO','ADMIN'])]},
     {path: 'bodega', component: BodegaComponent, canActivate: [authGuard, () => roleGuard(['BODEGA','ADMIN'])]},
     {path: 'bodega/registrar', component: RegisterProductComponent, canActivate: [authGuard, () => roleGuard(['BODEGA','ADMIN'])]},
     {path: 'test', component: TestComponent},

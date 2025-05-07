@@ -11,12 +11,14 @@ import { Router } from '@angular/router';
   styleUrl: './product-table.component.css'
 })
 export class ProductTableComponent implements OnInit {
-stock(arg0: number) {
-throw new Error('Method not implemented.');
-}
-editar(arg0: string) {
-throw new Error('Method not implemented.');
-}
+  
+  stock(arg0: number) {
+    throw new Error('Method not implemented.');
+  }
+
+  editar(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
   products: Product[] = []; // Lista de productos
 
     constructor(
