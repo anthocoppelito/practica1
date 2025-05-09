@@ -9,7 +9,7 @@
   
             <!-- Iterar sobre los productos en el FormArray -->
             <div formArrayName="products">
-
+                <!-- Es muy importante el formGroupName $index para ligar los arreglos y funcionen correctamente -->
                 @for(item of products.controls; track $index){
                     <div [formGroupName]="$index" class="row mb-3">
                         

@@ -4,6 +4,7 @@ import { SaleService } from '../../../../services/sale/sale.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-sale',
@@ -20,23 +21,10 @@ export class RegisterSaleComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
     private router: Router,
     private _apiSale: SaleService,
   ){
-    // this.registerForm=this.formBuilder.group({
-    //   productname:['',
-    //     [
-    //       Validators.required
-    //     ]
-    //   ],
-    //   amount: ['', 
-    //     [
-    //       Validators.required
-    //     ]
-    //   ],
-    //   price: ['', []],
-    // })
+
   }
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -98,9 +86,42 @@ export class RegisterSaleComponent implements OnInit {
 
 
 
-  // Método para registrar la venta
+  // Método para registrar la venta. se envia una lista de productos y su cantidad
+
   register(): void {
     if (this.registerForm.valid) {
+
+      // Construir el objeto salesList con los datos requeridos
+      const salesList = this.products.controls.map(ctrl => ({
+        productname: ctrl.value.productname,
+        amount: Number(ctrl.value.amount)
+      }));
+
+      // Crear el objeto que espera el backend
+      const saleRequest = { salesList };
+
+      // Llamar al servicio para registrar la venta
+      this._apiSale.registerSale(saleRequest).subscribe({
+        next: (response) => {
+          // Puedes mostrar un mensaje de éxito o redirigir
+          Swal.fire({
+            icon: 'success',
+            title: 'Datos actualizados',
+            text: 'Se actualizaron los datos.',
+            confirmButtonText: 'Aceptar',
+            }).then(() => {
+              this.router.navigate(['/cajero']);
+            })
+
+          console.log('Venta registrada correctamente', response);
+          // this.router.navigate(['/ruta-exitosa']);
+        },
+        error: (err) => {
+          this.registerError = 'Error al registrar la venta';
+          console.error(err);
+        }
+      });
+
       console.log('Formulario enviado:', this.registerForm.value);
       // Aquí puedes enviar los datos al backend
     } else {

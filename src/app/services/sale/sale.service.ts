@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../assets/environments/environment';
 import { Sale } from './sale';
+import { RegisterSaleRequest } from './registerSaleRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +27,10 @@ export class SaleService {
   getSalePriceByProductAmount(productname: string, amount: number): Observable<{ unitPrice: number; totalPrice: number }> {
     return this.http.get<{ unitPrice: number; totalPrice: number }>(environment.urlApi+"product/bodega/price/"+productname+"/"+amount);
   }
+
+  //registrar venta - se envia una lista de productos y su cantidad
+  registerSale(sale: RegisterSaleRequest): Observable<any> {
+    return this.http.post(environment.urlApi+"sales/cajero/register", sale, { responseType: 'text' });
+  }
+
 }
