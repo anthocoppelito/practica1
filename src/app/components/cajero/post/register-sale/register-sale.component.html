@@ -1,111 +1,73 @@
 <div class="card">
     <div class="card-header">
-        Registrar nueva venta
+      Registrar nueva venta
     </div>
     <div class="card-body m-0">
-        <div class="register">
-            <form [formGroup]="registerForm">
-                <p class="text-danger">{{registerError}}</p>
+      <div class="register">
+        <form [formGroup]="registerForm">
+            <p class="text-danger">{{ registerError }}</p>
+  
+            <!-- Iterar sobre los productos en el FormArray -->
+            <div formArrayName="products">
 
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="productnameInput" class="form-label">Product ID</label>
-                    </div>
-                    <div class="col">
-                        <label for="amountInput" class="form-label">Cantidad</label>
-                    </div>
-                    <div class="col">
-                        <label for="priceInput" class="form-label">Precio unitario</label>
-                    </div>
-                    <div class="col">
-                        <label for="totalInput" class="form-label">Total producto</label>
-                    </div>
-                </div>
-
-                <!-- Iterar sobre los productos en el FormArray -->
-                <div formArrayName="products">
-                    @for(item of products.controls; track $index){
-                        <div class="row mb-3">
-                            <div class="col">
-                                
-                                <input type="text" class="form-control" id="productnameInput{{ $index }}" formControlName="productname" maxlength="35">
-                                @if (productname?.invalid && (productname?.dirty || productname?.touched)){
-                                    <div class="text-danger">
-                                        @if (productname?.errors?.['required']) {
-                                            <div>ID del producto requerido</div>
-                                        } 
-                                    </div>                     
-                                }
-                            </div>
-
-                            <div class="col">
-                                
-                                <input type="text" class="form-control" id="amountInput{{ $index }}" formControlName="amount" maxlength="5" (keypress)="allowOnlyNumbers($event)">
-                                @if (amount?.invalid && (amount?.dirty || amount?.touched)){
-                                    <div class="text-danger">
-                                        @if (amount?.errors?.['required']) {
-                                            <div>La cantidad es requerida</div>
-                                        } 
-                                    </div>                     
-                                }
-                            </div>
-
-                            <div class="col">
-                                <input type="text" class="form-control" id="priceInput{{ $index }}" formControlName="price" maxlength="10" readonly>
-                            </div>
-
-                            <div class="col">
-                                <input type="text" class="form-control" id="totalInput{{ $index }}" formControlName="total" maxlength="10" readonly>
-                            </div>
-
+                @for(item of products.controls; track $index){
+                    <div [formGroupName]="$index" class="row mb-3">
+                        
+                        <div class="col">
+                            <label for="productnameInput{{ $index }}" class="form-label">Product ID</label>
+                            <input
+                            type="text"
+                            class="form-control"
+                            id="productnameInput{{ $index }}"
+                            formControlName="productname"
+                            maxlength="35"
+                            />
                         </div>
-                        
+    
+                        <div class="col">
+                            <label for="amountInput{{ $index }}" class="form-label">Cantidad</label>
+                            <input
+                            type="text"
+                            class="form-control"
+                            id="amountInput{{ $index }}"
+                            formControlName="amount"
+                            maxlength="5"
+                            (keypress)="allowOnlyNumbers($event)"
+                            />
+                        </div>
+    
+                        <div class="col">
+                            <label for="priceInput{{ $index }}" class="form-label">Precio unitario</label>
+                            <input
+                            type="text"
+                            class="form-control"
+                            id="priceInput{{ $index }}"
+                            formControlName="price"
+                            maxlength="10"
+                            readonly
+                            />
+                        </div>
+    
+                        <div class="col">
+                            <label for="totalInput{{ $index}}" class="form-label">Total producto</label>
+                            <input
+                            type="text"
+                            class="form-control"
+                            id="totalInput{{ $index }}"
+                            formControlName="total"
+                            maxlength="10"
+                            readonly
+                            />
+                        </div>
+                    </div>
 
-                        
-
-                        
-                    }
-                   
-
-                </div>
-
-                <!-- <div class="mb-3">
-                    <label for="productIDInput" class="form-label">Product ID</label>
-                    <input type="text" class="form-control" id="productIDInput" formControlName="productname" maxlength="35"> 
-                    @if (productname?.invalid && (productname?.dirty || productname?.touched)){
-                        <div class="text-danger">
-                            @if (productname?.errors?.['required']) {
-                                <div>ID del producto requerido</div>
-                            } 
-                        </div>                     
-                    }
-                </div>
-
-                <div class="mb-3">
-                    <label for="cantidadInput" class="form-label">Cantidad</label>
-                    <input type="text" class="form-control" id="descripcionInput" formControlName="amount" maxlength="5"> 
-                    @if (amount?.invalid && (amount?.dirty || amount?.touched)){
-                        <div class="text-danger">
-                            @if (amount?.errors?.['required']) {
-                                <div>La cantidad es requerida</div>
-                            } 
-                        </div>                     
-                    }
-                </div>
-
-                <div class="mb-3">
-                    <label for="PrecioInput" class="form-label">Precio</label>
-                    <input type="text" class="form-control" id="PrecioInput" formControlName="price" maxlength="10">        
-                </div> -->
-
-            
-
-
-                <!-- Botón para agregar más productos -->
-                <button type="button" class="btn btn-secondary mt-3" (click)="addProduct()">Agregar otro producto</button>
-                <button type="submit" class="btn btn-primary" (click)="register()">Registrar venta</button>
-            </form>
-        </div>
+                }
+            </div>
+  
+          <!-- Botón para agregar más productos -->
+          <button type="button" class="btn btn-secondary mt-3" (click)="addProduct()">Agregar otro producto</button>
+          <button type="submit" class="btn btn-primary mt-3" (click)="register()">Registrar venta</button>
+        </form>
+      </div>
     </div>
-
-</div>
+  </div>
