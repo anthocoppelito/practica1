@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../../services/product/product';
 import { ProductService } from '../../../../services/product/product.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-table',
@@ -13,11 +14,23 @@ import { Router } from '@angular/router';
 export class ProductTableComponent implements OnInit {
   
   stock(arg0: number) {
-    throw new Error('Method not implemented.');
+    Swal.fire({
+      icon: 'warning',
+      title: 'Funcionalidad no disponible',
+      text: 'Funcionalidad no disponible',
+      confirmButtonText: 'Aceptar',
+    })
+
   }
 
   editar(arg0: string) {
-    throw new Error('Method not implemented.');
+    Swal.fire({
+      icon: 'warning',
+      title: 'Funcionalidad no disponible',
+      text: 'Funcionalidad no disponible',
+      confirmButtonText: 'Aceptar',
+    })                
+                  
   }
   products: Product[] = []; // Lista de productos
 

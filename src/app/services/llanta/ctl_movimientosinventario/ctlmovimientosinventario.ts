@@ -1,0 +1,9 @@
+import { InventarioLlantas } from "../ctl_inventariollantas/inventariollantas";
+
+export interface CtlMovimientosinventario{
+    idMovimientoinventario: number;
+    llanta: InventarioLlantas;
+    num_precio: number;
+    fec_movimiento: Date;
+    opc_activo: Boolean;
+}
