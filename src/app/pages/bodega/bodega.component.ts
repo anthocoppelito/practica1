@@ -20,6 +20,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class BodegaComponent implements OnInit{
 
+  
+
   addstock() {
     throw new Error('Method not implemented.');
   }

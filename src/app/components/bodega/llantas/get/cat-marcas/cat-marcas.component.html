@@ -28,3 +28,27 @@
       </tbody>
     </table>
 </div>
+<!-- modal -->
+ <div class="modal fade" id="modalMarca" tabindex="-1" aria-labelledby="modalMarcaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="marcaForm" (ngSubmit)="registrarMarca()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalMarcaLabel">Registrar nueva marca</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="nombreMarca" class="form-label">Nombre de la marca</label>
+            <input type="text" class="form-control" id="nombreMarca" formControlName="nomMarcas" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="marcaForm.invalid">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
