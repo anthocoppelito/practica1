@@ -1,29 +1,72 @@
 <!-- html-validate-disable -->
 <div class="container">
-    <!-- <p>Bienvenido a la pagina de bodega</p> -->
-    <div class="registrar">
-        <button type="submit" class="btn btn-primary" (click)="registrar()">Agregar productos</button>
+
+    <div class="mb-3">
+        <label>Mostrar:</label>
+        <select [(ngModel)]="selectedCard">
+            <option value="todos">Todos</option>
+            <option value="marca">Marca</option>
+            <option value="modelo">Modelo</option>
+            <option value="categoria">Categoria Movimientos Inventario</option>
+            <option value="rines">Rines</option>
+            <option value="inventario">Inventario llantas</option>
+            <option value="control">Control movimientos inventario</option>
+        </select>
     </div>
-    <!-- <div class="addstock">
-        <button type="submit" class="btn btn-primary" (click)="addstock()">Agregar stock a un producto</button>
-    </div> -->
+    
+
+    @if (selectedCard === 'todos' || selectedCard === 'marca') {
     <div class="card">
-        <div class="card-header">
-            Agregar marca
-        </div>
+        <div class="card-header">Marca</div>
         <div class="card-body m-0">
-            <app-product-table/>
+            <app-cat-marcas/>
         </div>
-        <br>
     </div>
+    }
+
+    @if (selectedCard === 'todos' || selectedCard === 'modelo') {
     <div class="card">
-        <div class="card-header">
-            Productos disponibles
-        </div>
+        <div class="card-header">Modelo</div>
         <div class="card-body m-0">
-            <app-product-table/>
+            <app-cat-modelos/>
         </div>
-        <br>
     </div>
+    }
+
+    @if (selectedCard === 'todos' || selectedCard === 'categoria') {
+    <div class="card">
+        <div class="card-header">Categoria Movimientos Inventario</div>
+        <div class="card-body m-0">
+            <app-cat-movimientosinventario/>
+        </div>
+    </div>
+    }
+
+    @if (selectedCard === 'todos' || selectedCard === 'rines') {
+    <div class="card">
+        <div class="card-header">Rines</div>
+        <div class="card-body m-0">
+            <app-cat-rines/>
+        </div>
+    </div>
+    }
+
+    @if (selectedCard === 'todos' || selectedCard === 'inventario') {
+    <div class="card">
+        <div class="card-header">Inventario llantas</div>
+        <div class="card-body m-0">
+            <app-ctl-inventariollantas/>
+        </div>
+    </div>
+    }
+
+    @if (selectedCard === 'todos' || selectedCard === 'control') {
+    <div class="card">
+        <div class="card-header">Control movimientos inventario</div>
+        <div class="card-body m-0">
+            <app-ctl-movimientosinventario/>
+        </div>
+    </div>
+    }
 
 </div>

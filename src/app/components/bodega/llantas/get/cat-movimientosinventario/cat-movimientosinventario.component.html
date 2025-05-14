@@ -1,0 +1,30 @@
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Movimientos Inventario ID</th>
+          <th>Nombre movimiento inventario</th>
+          <th>Fecha Alta</th>
+          <th>Estado</th>
+          <!-- <th>Acciones</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Usar @for con la sintaxis correcta -->
+        @for (movinv of catMovimientosinventario; track $index){
+          <tr>
+            <!-- <td>{{ user.id }}</td> -->
+            <td>{{ movinv.idMovimientoinventario }}</td>
+            <td>{{ movinv.nomMovimientoinventario }}</td>
+            <td>{{ movinv.fec_alta }}</td>
+            <td>{{ movinv.opc_activo }}</td>
+            <!-- <td>
+              <button type="button" class="btn btn-outline-primary" (click)="editar(marca.id_marca)">Editar</button>
+            </td> -->
+          </tr>
+        }
+          
+      </tbody>
+    </table>
+</div>

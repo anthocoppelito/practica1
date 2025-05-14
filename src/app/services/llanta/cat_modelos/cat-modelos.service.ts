@@ -14,12 +14,12 @@ export class CatModelosService {
 
   //getAllModels
   getAllModels(): Observable<Modelos[]> {
-    return this.http.get<Modelos[]>(environment.urlApi2+"marcas/all");
+    return this.http.get<Modelos[]>(environment.urlApi2+"modelos/all");
   }
 
   //registrar modelos
   register(modelo: ModelosDTO): Observable<String> {
-    return this.http.post(environment.urlApi2+"marcas/register", modelo, { responseType: 'text' });
+    return this.http.post(environment.urlApi2+"modelos/register", modelo, { responseType: 'text' });
   }
 
 }

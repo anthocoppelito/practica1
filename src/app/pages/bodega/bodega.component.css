@@ -8,3 +8,36 @@
     margin-top: 30px;
     margin-bottom: 20px;
 }
+
+/* Contenedor para centrar y espaciar */
+.mb-3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilo para el label */
+.mb-3 label {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-right: 8px;
+  color: #333;
+}
+
+/* Estilo para el select */
+.mb-3 select {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #bdbdbd;
+  font-size: 1rem;
+  background: #fafafa;
+  color: #222;
+  transition: border-color 0.2s;
+}
+
+.mb-3 select:focus {
+  border-color: #1976d2;
+  outline: none;
+  background: #fff;
+}

@@ -1,0 +1,30 @@
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Marca ID</th>
+          <th>Nombre marca</th>
+          <th>Fecha Alta</th>
+          <th>Estado</th>
+          <!-- <th>Acciones</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Usar @for con la sintaxis correcta -->
+        @for (marca of marcas; track $index){
+          <tr>
+            <!-- <td>{{ user.id }}</td> -->
+            <td>{{ marca.id_marca }}</td>
+            <td>{{ marca.nomMarcas }}</td>
+            <td>{{ marca.fec_alta }}</td>
+            <td>{{ marca.opc_activo }}</td>
+            <!-- <td>
+              <button type="button" class="btn btn-outline-primary" (click)="editar(marca.id_marca)">Editar</button>
+            </td> -->
+          </tr>
+        }
+          
+      </tbody>
+    </table>
+</div>

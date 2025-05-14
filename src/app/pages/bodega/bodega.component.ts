@@ -3,11 +3,18 @@ import { AuthService } from '../../services/auth/auth.service';
 import { ProductTableComponent } from "../../components/bodega/get/product-table/product-table.component";
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { CatMarcasComponent } from "../../components/bodega/llantas/get/cat-marcas/cat-marcas.component";
+import { CatModelosComponent } from "../../components/bodega/llantas/get/cat-modelos/cat-modelos.component";
+import { CatMovimientosinventarioComponent } from "../../components/bodega/llantas/get/cat-movimientosinventario/cat-movimientosinventario.component";
+import { CatRinesComponent } from "../../components/bodega/llantas/get/cat-rines/cat-rines.component";
+import { CtlInventariollantasComponent } from "../../components/bodega/llantas/get/ctl-inventariollantas/ctl-inventariollantas.component";
+import { CtlMovimientosinventarioComponent } from "../../components/bodega/llantas/get/ctl-movimientosinventario/ctl-movimientosinventario.component";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-bodega',
   standalone: true,
-  imports: [ProductTableComponent],
+  imports: [FormsModule,ProductTableComponent, CatMarcasComponent, CatModelosComponent, CatMovimientosinventarioComponent, CatRinesComponent, CtlInventariollantasComponent, CtlMovimientosinventarioComponent],
   templateUrl: './bodega.component.html',
   styleUrl: './bodega.component.css'
 })
@@ -23,6 +30,7 @@ export class BodegaComponent implements OnInit{
 
   //variable local
     userLoginOn: boolean = false;
+    selectedCard: string = 'todos'; // valores: 'todos', 'marca', 'modelo', 'categoria', 'rines', 'inventario', 'control'
   
     // inyectar servicio
     constructor(

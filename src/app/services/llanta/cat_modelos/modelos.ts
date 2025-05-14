@@ -1,6 +1,6 @@
 export interface Modelos{
     id_modelo: number;
-    nomModelo: string;
+    nomModelos: String;
     fec_alta: Date;
     opc_activo: Boolean;
 

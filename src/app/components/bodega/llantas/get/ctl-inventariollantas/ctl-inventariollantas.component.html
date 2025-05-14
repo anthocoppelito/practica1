@@ -1,0 +1,36 @@
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Llanta ID</th>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Rin</th>
+          <th>Precio basico</th>
+          <th>Fecha alta</th>
+          <th>Número existencia</th>
+          <!-- <th>Acciones</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Usar @for con la sintaxis correcta -->
+        @for (llanta of llantas; track $index){
+          <tr>
+            <!-- <td>{{ user.id }}</td> -->
+            <td>{{ llanta.idLlanta }}</td>
+            <td>{{ llanta.marca?.nomMarcas ?? 'N/A' }}</td>
+            <td>{{ llanta.modelo?.nomModelos ?? 'N/A' }}</td>
+            <td>{{ llanta.rines?.nomRin ?? 'N/A'}}</td>
+            <td>{{ llanta.num_preciobasico}}</td>
+            <td>{{ llanta.fec_alta}}</td>
+            <td>{{ llanta.num_existencia}}</td>
+            <!-- <td>
+                <button type="button" class="btn btn-outline-primary" (click)="editar(marca.id_marca)">Editar</button>
+            </td> -->
+          </tr>
+        }
+          
+      </tbody>
+    </table>
+</div>

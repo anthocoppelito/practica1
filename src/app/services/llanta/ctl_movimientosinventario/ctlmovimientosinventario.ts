@@ -5,5 +5,6 @@ export interface CtlMovimientosinventario{
     llanta: InventarioLlantas;
     num_precio: number;
     fec_movimiento: Date;
+    num_empleado: Number;
     opc_activo: Boolean;
 }

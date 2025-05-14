@@ -3,11 +3,11 @@ import { Modelos } from "../cat_modelos/modelos";
 import { Rines } from "../cat_rines/rines";
 
 export interface InventarioLlantas{
-    id_llanta: number;
-    marca: Marcas;
-    modelo: Modelos;
-    rin: Rines;
+    idLlanta: number;
+    marca: Marcas | null;
+    modelo: Modelos | null;
+    rines: Rines | null;
     num_preciobasico: number;
     fec_alta: Date;
-    opc_activo: Boolean;
+    num_existencia: number;
 }

@@ -14,7 +14,7 @@ export class CtlInventariollantasService {
 
   //getAllInventarioLlanta
   getAllInventarioLlanta(): Observable<InventarioLlantas[]> {
-    return this.http.get<InventarioLlantas[]>(environment.urlApi2 + "inventariollantas/all");
+    return this.http.get<InventarioLlantas[]>(environment.urlApi2 + "inventarioLlanta/all");
   }
 
   //registrar inventario llantas

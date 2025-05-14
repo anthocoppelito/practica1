@@ -1,0 +1,26 @@
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Modelo ID</th>
+          <th>Nombre modelo</th>
+          <th>Fecha Alta</th>
+          <th>Estado</th>
+          <!-- <th>Acciones</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        @for (modelo of modelos; track $index){
+          <tr>
+            <td>{{ modelo.id_modelo }}</td>
+            <td>{{ modelo.nomModelos }}</td>
+            <td>{{ modelo.fec_alta }}</td>
+            <td>{{ modelo.opc_activo }}</td>
+            <!-- <td>
+              <button type="button" class="btn btn-outline-primary" (click)="editar(modelo.id_modelo)">Editar</button>
+            </td> -->
+          </tr>
+        }    
+      </tbody>
+    </table>
+</div>

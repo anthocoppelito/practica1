@@ -14,7 +14,7 @@ export class CtlMovimientosinventarioService {
 
   //getAllMovimientosInventario
   getAllMovimientosInventario(): Observable<CtlMovimientosinventario[]> {
-    return this.http.get<CtlMovimientosinventario[]>(environment.urlApi2 + "movimientosinventario/all");
+    return this.http.get<CtlMovimientosinventario[]>(environment.urlApi2 + "movimientoInventario/all");
   }
 
   //registrar movimientos inventario

@@ -1,0 +1,34 @@
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Movimiento ID</th>
+          <th>LLanta ID</th>
+          <th>Precio</th>
+          <th>Fecha Movimiento</th>
+          <th>Numero empleado</th>
+          <th>Activo</th>
+          <!-- <th>Acciones</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Usar @for con la sintaxis correcta -->
+        @for (ctlmovin of ctlMovimientosInventario; track $index){
+          <tr>
+            <!-- <td>{{ user.id }}</td> -->
+            <td>{{ ctlmovin.idMovimientoinventario }}</td>
+            <td>{{ ctlmovin.llanta.idLlanta }}</td>
+            <td>{{ ctlmovin.num_precio }}</td>
+            <td>{{ ctlmovin.fec_movimiento }}</td>
+            <td>{{ ctlmovin.num_empleado }}</td>
+            <td>{{ ctlmovin.opc_activo }}</td>
+            <!-- <td>
+                <button type="button" class="btn btn-outline-primary" (click)="editar(marca.id_marca)">Editar</button>
+            </td> -->
+          </tr>
+        }
+          
+      </tbody>
+    </table>
+</div>
