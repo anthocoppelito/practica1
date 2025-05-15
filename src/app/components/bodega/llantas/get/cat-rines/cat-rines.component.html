@@ -16,7 +16,7 @@
           <tr>
             <!-- <td>{{ user.id }}</td> -->
             <td>{{ ri.id_rin }}</td>
-            <td>{{ ri.nomRin }}</td>
+            <td>{{ ri.nomRin ?? 'N/A' }}</td>
             <td>{{ ri.fec_alta }}</td>
             <td>{{ ri.opc_activo }}</td>
             <!-- <td>
@@ -27,4 +27,27 @@
           
       </tbody>
     </table>
+</div>
+<!-- modal -->
+<div class="modal fade" id="modalRines" tabindex="-1" aria-labelledby="modalRinesLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="rinForm" (ngSubmit)="registrarRin()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalRinesLabel">Registrar nuevo rin</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="nombreRin" class="form-label">Nombre del rin</label>
+            <input type="text" class="form-control" id="nombreRin" formControlName="nomRin" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="rinForm.invalid">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

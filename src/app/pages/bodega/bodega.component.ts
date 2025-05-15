@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-bodega',
   standalone: true,
-  imports: [FormsModule,ProductTableComponent, CatMarcasComponent, CatModelosComponent, CatMovimientosinventarioComponent, CatRinesComponent, CtlInventariollantasComponent, CtlMovimientosinventarioComponent],
+  imports: [FormsModule, CatMarcasComponent, CatModelosComponent, CatMovimientosinventarioComponent, CatRinesComponent, CtlInventariollantasComponent, CtlMovimientosinventarioComponent],
   templateUrl: './bodega.component.html',
   styleUrl: './bodega.component.css'
 })

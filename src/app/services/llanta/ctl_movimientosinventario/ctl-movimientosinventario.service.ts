@@ -19,6 +19,6 @@ export class CtlMovimientosinventarioService {
 
   //registrar movimientos inventario
   register(movimiento: CtlMovimientosinventarioDTO): Observable<String> {
-    return this.http.post(environment.urlApi2 + "movimientosinventario/register", movimiento, { responseType: 'text' });
+    return this.http.post(environment.urlApi2 + "movimientoInventario/register", movimiento, { responseType: 'text' });
   }
 }

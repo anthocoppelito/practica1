@@ -10,10 +10,12 @@
         </tr>
       </thead>
       <tbody>
+
         @for (modelo of modelos; track $index){
           <tr>
+
             <td>{{ modelo.id_modelo }}</td>
-            <td>{{ modelo.nomModelos }}</td>
+            <td>{{ modelo.nomModelos ?? 'N/A' }}</td>
             <td>{{ modelo.fec_alta }}</td>
             <td>{{ modelo.opc_activo }}</td>
             <!-- <td>
@@ -24,3 +26,26 @@
       </tbody>
     </table>
 </div>
+<!--  modal -->
+  <div class="modal fade" id="modalModelo" tabindex="-1" aria-labelledby="modalModeloLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form [formGroup]="modeloForm" (ngSubmit)="registrarModelo()">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalModeloLabel">Registrar nuevo modelo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nombreModelo" class="form-label">Nombre del modelo</label>
+              <input type="text" class="form-control" id="nombreModelo" formControlName="nomModelos" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="modeloForm.invalid">Registrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

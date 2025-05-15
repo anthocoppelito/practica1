@@ -2,7 +2,6 @@
     <table>
       <thead>
         <tr>
-          <!-- <th>ID</th> -->
           <th>Marca ID</th>
           <th>Nombre marca</th>
           <th>Fecha Alta</th>
@@ -17,14 +16,13 @@
             <!-- <td>{{ user.id }}</td> -->
             <td>{{ marca.id_marca }}</td>
             <td>{{ marca.nomMarcas }}</td>
-            <td>{{ marca.fec_alta }}</td>
-            <td>{{ marca.opc_activo }}</td>
+            <td>{{ marca.fec_alta ?? 'N/A' }}</td>
+            <td>{{ marca.opc_activo ?? 'N/A' }}</td>
             <!-- <td>
               <button type="button" class="btn btn-outline-primary" (click)="editar(marca.id_marca)">Editar</button>
             </td> -->
           </tr>
         }
-          
       </tbody>
     </table>
 </div>

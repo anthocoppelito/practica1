@@ -19,6 +19,6 @@ export class CtlInventariollantasService {
 
   //registrar inventario llantas
   register(inventario: InventarioLlantasDTO): Observable<String> {
-    return this.http.post(environment.urlApi2 + "inventariollantas/register", inventario, { responseType: 'text' });
+    return this.http.post(environment.urlApi2 + "inventarioLlanta/register", inventario, { responseType: 'text' });
   }
 }

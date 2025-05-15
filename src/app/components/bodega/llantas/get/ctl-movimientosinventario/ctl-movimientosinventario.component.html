@@ -22,7 +22,7 @@
             <td>{{ ctlmovin.num_precio }}</td>
             <td>{{ ctlmovin.fec_movimiento }}</td>
             <td>{{ ctlmovin.num_empleado }}</td>
-            <td>{{ ctlmovin.opc_activo }}</td>
+            <td>{{ ctlmovin.opc_activo ?? 'N/A' }}</td>
             <!-- <td>
                 <button type="button" class="btn btn-outline-primary" (click)="editar(marca.id_marca)">Editar</button>
             </td> -->
@@ -31,4 +31,40 @@
           
       </tbody>
     </table>
+</div>
+<!-- modal -->
+<div class="modal fade" id="modalControlInventario" tabindex="-1" aria-labelledby="modalCtlMovimientosInventarioLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="ctlMovimientosinventarioForm" (ngSubmit)="registrarMovimientosInventario()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalCtlMovimientosInventarioLabel">Registrar nuevo movimiento inventario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="llanta" class="form-label">Llanta</label>
+            <select class="form-select" id="llanta" formControlName="id_llanta" required>
+              @for (llanta of llantas; track $index){
+                <option [value]="llanta.idLlanta">{{ llanta.idLlanta }}</option>
+              }
+              
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="precio" class="form-label">Precio</label>
+            <input type="number" class="form-control" id="precio" formControlName="num_precio" required>
+          </div>
+          <div class="mb-3">
+            <label for="empleado" class="form-label">Número de empleado</label>
+            <input type="text" class="form-control" id="empleado" formControlName="num_empleado" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="ctlMovimientosinventarioForm.invalid">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

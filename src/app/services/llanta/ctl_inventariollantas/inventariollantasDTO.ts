@@ -4,5 +4,5 @@ export interface InventarioLlantasDTO{
     id_rin: number;
     num_preciobasico: number;
     fec_alta: Date;
-    opc_activo: Boolean;
+    num_existencia: number;
 }

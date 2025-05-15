@@ -58,6 +58,14 @@ export class CatMarcasComponent implements OnInit {
           }
           this.marcaForm.reset();
           // Recarga la lista de marcas si es necesario
+          this.catMarcasService.getAllMarcas().subscribe({
+            next: (data) => {
+              this.marcas = data; // Asignar las marcas a la variable
+            },
+            error: (err) => {
+              console.error('Error al obtener las marcas:', err);
+            }
+          });
         },
         error: (err) => {
           // Maneja el error

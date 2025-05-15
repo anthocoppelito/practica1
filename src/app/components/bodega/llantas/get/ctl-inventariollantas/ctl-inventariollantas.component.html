@@ -34,3 +34,56 @@
       </tbody>
     </table>
 </div>
+<!-- modal -->
+<div class="modal fade" id="modalLlantas" tabindex="-1" aria-labelledby="modalLlantasLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="inventarioLlantasForm" (ngSubmit)="registrarLlanta()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLlantaLabel">Registrar nueva llanta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="marca" class="form-label">Marca</label>
+            <select class="form-select" id="marca" formControlName="id_marca" required>
+              @for (marca of marcas;track $index){
+                <option [value]="marca.id_marca">{{marca.nomMarcas}}</option>
+
+              }
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="modelo" class="form-label">Modelo</label>
+            <select class="form-select" id="modelo" formControlName="id_modelo" required>
+              @for (modelo of modelos;track $index){
+                <option [value]="modelo.id_modelo">{{modelo.nomModelos}}</option>
+              }
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="rin" class="form-label">Rin</label>
+            <select class="form-select" id="rin" formControlName="id_rin" required>
+              @for (rin of rines;track $index){
+                <option [value]="rin.id_rin">{{rin.nomRin}}</option>
+              }
+              
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="precioBasico" class="form-label">Precio básico</label>
+            <input type="number" class="form-control" id="precioBasico" formControlName="num_preciobasico" required>
+          </div>
+          <div class="mb-3">
+            <label for="existencia" class="form-label">Número existencia</label>
+            <input type="number" class="form-control" id="existencia" formControlName="num_existencia" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="inventarioLlantasForm.invalid">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
