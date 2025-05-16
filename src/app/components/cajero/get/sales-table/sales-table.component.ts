@@ -39,5 +39,20 @@ export class SalesTableComponent implements OnInit {
         console.error('Error al obtener las ventas:', err);
       }
     })
+    this.saleService.saleRegistered$.subscribe(() => {
+    this.cargarVentas(); // tu método para recargar la tabla
+    });
+  }
+
+  
+  cargarVentas() {
+    this.saleService.getAllSales().subscribe({
+      next: (data) => {
+        this.sales = data; // Asignar las ventas a la variable
+      },
+      error: (err) => {
+        console.error('Error al obtener las ventas:', err);
+      }
+    })
   }
 }

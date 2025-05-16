@@ -5,7 +5,7 @@
     <table class="table table-bordered mt-3">
       <thead>
         <tr>
-          <th>Nombre del Producto</th>
+          <th>ID del Producto</th>
           <th>Cantidad</th>
           <th>Precio Unitario</th>
           <th>Total Producto</th>
@@ -14,7 +14,7 @@
       <tbody>
         @for (item of sale?.salesList; track $index){
             <tr>
-                <td>{{ item.product.productname }}</td>
+                <td>{{ item.llantas.idLlanta }}</td>
                 <td>{{ item.amount }}</td>
                 <td>{{ item.price | currency }}</td>
                 <td>{{ item.totalPrice | currency }}</td>

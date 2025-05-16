@@ -41,3 +41,9 @@
   outline: none;
   background: #fff;
 }
+
+.h2{
+    text-align: center !important;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

@@ -1,6 +1,6 @@
 export interface RegisterSaleRequest {
     salesList: {
-      productname: string;
+      productname: string;//productname o llantaid
       amount: number;
     }[];
   }

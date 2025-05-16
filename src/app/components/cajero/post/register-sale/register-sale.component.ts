@@ -35,10 +35,10 @@ export class RegisterSaleComponent implements OnInit {
     this.addProduct();
   }
 
-  // Método para agregar un nuevo producto al FormArray
+  // Método para agregar un nuevo producto al FormArray9
   addProduct(): void {
     const productGroup = this.formBuilder.group({
-      productname: [''], // Nombre del producto
+      id: [''], // Nombre del producto
       amount: [''], // Cantidad (solo números)
       price: [''], //solo lectura
       total: [''] // solo lectura
@@ -51,9 +51,9 @@ export class RegisterSaleComponent implements OnInit {
       distinctUntilChanged() // Evitar llamadas repetidas si los valores no cambian
     )
     .subscribe((values) => {
-      const { productname, amount } = values;
-      if (productname && amount) { // si ambos están presentes
-        this.fetchPriceAndTotal(productname, amount, productGroup);
+      const { id, amount } = values;
+      if (id && amount) { // si ambos están presentes
+        this.fetchPriceAndTotal(Number(id), Number(amount), productGroup);
       }
     });
 
@@ -69,9 +69,9 @@ export class RegisterSaleComponent implements OnInit {
   }
 
   // Método para consultar el precio y total desde el backend
-  fetchPriceAndTotal(productname: string, amount: string, productGroup: FormGroup): void {
+  fetchPriceAndTotal(id: number, amount: number, productGroup: FormGroup): void {
 
-    this._apiSale.getSalePriceByProductAmount(productname, Number(amount)).subscribe({
+    this._apiSale.getSalePriceByProductAmount(Number(id), Number(amount)).subscribe({
       next: (data) => {
         productGroup.patchValue({
           price: data.unitPrice,
@@ -93,7 +93,7 @@ export class RegisterSaleComponent implements OnInit {
 
       // Construir el objeto salesList con los datos requeridos
       const salesList = this.products.controls.map(ctrl => ({
-        productname: ctrl.value.productname,
+        id: Number(ctrl.value.id),
         amount: Number(ctrl.value.amount)
       }));
 
@@ -101,7 +101,7 @@ export class RegisterSaleComponent implements OnInit {
       const saleRequest = { salesList };
 
       // Llamar al servicio para registrar la venta
-      this._apiSale.registerSale(saleRequest).subscribe({
+      this._apiSale.registerSaleLlantas(saleRequest).subscribe({
         next: (response) => {
           // Puedes mostrar un mensaje de éxito o redirigir
           Swal.fire({
@@ -110,6 +110,9 @@ export class RegisterSaleComponent implements OnInit {
             text: 'Se actualizaron los datos.',
             confirmButtonText: 'Aceptar',
             }).then(() => {
+              //enviar notificacion de venta registrada
+              this._apiSale.notifySaleRegistered();
+
               this.router.navigate(['/cajero']);
             })
 
@@ -119,8 +122,15 @@ export class RegisterSaleComponent implements OnInit {
         error: (err) => {
           this.registerError = 'Error al registrar la venta';
           console.error(err);
+        },
+        complete: () => {
+          console.info('Registro de venta completo');
+          this.registerForm.reset(); // Limpiar el formulario después de registrar
         }
       });
+      
+      
+
 
       console.log('Formulario enviado:', this.registerForm.value);
       // Aquí puedes enviar los datos al backend
@@ -135,6 +145,11 @@ export class RegisterSaleComponent implements OnInit {
       event.preventDefault(); // Bloquear caracteres no numéricos
     }
   }
+  get totalVenta(): number {
+  return this.products.controls
+    .map(ctrl => Number(ctrl.value.total) || 0)
+    .reduce((acc, curr) => acc + curr, 0);
+}
 
 
 
