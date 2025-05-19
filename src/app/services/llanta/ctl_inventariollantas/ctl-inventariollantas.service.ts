@@ -10,6 +10,11 @@ import { InventarioLlantasDTO } from './inventariollantasDTO';
 })
 export class CtlInventariollantasService {
 
+  getLlantasbySearch(busqueda: String): Observable<InventarioLlantas[]> {
+    return this.http.get<InventarioLlantas[]>(environment.urlApi2 + "inventarioLlanta/search/" + busqueda);
+  }
+
+
   constructor(private http: HttpClient) { }
 
   //getAllInventarioLlanta

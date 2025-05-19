@@ -17,6 +17,7 @@ import { Rines } from '../../../../../services/llanta/cat_rines/rines';
   styleUrl: './ctl-inventariollantas.component.css'
 })
 export class CtlInventariollantasComponent implements OnInit {
+
   inventarioLlantasForm!: FormGroup;
 
   llantas: InventarioLlantas[] = []; // Lista de llantas
@@ -108,5 +109,35 @@ export class CtlInventariollantasComponent implements OnInit {
         }
       });
     }
+  }
+
+  //obtener busqueda de usuarios segun la busqueda
+  buscar(busqueda: String){
+    if (busqueda=="" || busqueda =="*"){//buscar por todos
+      this.inventarioLlantasService.getAllInventarioLlanta().subscribe({
+      next: (data) => {
+        this.llantas = data; // Asignar las llantas a la variable
+      },
+      error: (err) => {
+        console.error('Error al obtener las llantas:', err);
+      }
+    })
+    }else{
+      this.inventarioLlantasService.getLlantasbySearch(busqueda).subscribe({
+        next: (data) => {
+          this.llantas = data;
+        },
+        error: (err) => {
+          console.error('Error al obtener los usuarios:', err);
+        },
+      });
+
+    }
+
+
+    
+
+
+
   }
 }

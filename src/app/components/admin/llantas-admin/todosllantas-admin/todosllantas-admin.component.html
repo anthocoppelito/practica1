@@ -1,0 +1,91 @@
+<!-- html-validate-disable -->
+<div class="container">
+    <h2>Manejo de llantas - ADMIN</h2>
+    <br>
+    <div class="mb-3">
+        <label>Mostrar:</label>
+        <select [(ngModel)]="selectedCard">
+            <option value="todos">Todos</option>
+            <option value="marca">Marca</option>
+            <option value="modelo">Modelo</option>
+            <option value="categoria">Categoria Movimientos Inventario</option>
+            <option value="rines">Rines</option>
+            <option value="inventario">Inventario llantas</option>
+            <option value="control">Control movimientos inventario</option>
+        </select>
+    </div>
+    
+
+    @if (selectedCard === 'todos' || selectedCard === 'marca') {
+    <div class="card">
+        <div class="card-header">Marca</div>
+        <div class="card-body m-0">
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalMarca">
+                Agregar marca
+            </button>
+            <app-cat-marcas/>
+        </div>
+    </div>
+    }
+
+    @if (selectedCard === 'todos' || selectedCard === 'modelo') {
+    <div class="card">
+        <div class="card-header">Modelo</div>
+        <div class="card-body m-0">
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalModelo">
+                Agregar modelo
+            </button>
+            <app-cat-modelos/>
+        </div>
+    </div>
+    }
+
+    @if (selectedCard === 'todos' || selectedCard === 'categoria') {
+    <div class="card">
+        <div class="card-header">Categoria Movimientos Inventario</div>
+        <div class="card-body m-0">
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalCatMovimientosInventario">
+                Agregar categoria de movimientos inventario
+            </button>
+            <app-cat-movimientosinventario/>
+        </div>
+    </div>
+    }
+
+    @if (selectedCard === 'todos' || selectedCard === 'rines') {
+    <div class="card">
+        <div class="card-header">Rines</div>
+        <div class="card-body m-0">
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalRines">
+                Agregar rines
+            </button>
+            <app-cat-rines/>
+        </div>
+    </div>
+    }
+
+    @if (selectedCard === 'todos' || selectedCard === 'inventario') {
+    <div class="card">
+        <div class="card-header">Inventario llantas</div>
+        <div class="card-body m-0">
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalLlantas">
+                Agregar llantas
+            </button>
+            <app-ctl-inventariollantas/>
+        </div>
+    </div>
+    }
+
+    @if (selectedCard === 'todos' || selectedCard === 'control') {
+    <div class="card">
+        <div class="card-header">Control movimientos inventario</div>
+        <div class="card-body m-0">
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalControlInventario">
+                Agregar control de inventario
+            </button>
+            <app-ctl-movimientosinventario/>
+        </div>
+    </div>
+    }
+
+</div>

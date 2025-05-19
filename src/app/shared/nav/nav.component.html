@@ -10,9 +10,28 @@
                 
                 <div class="navbar-nav">
                         <!-- <a class="nav-link active" routerLink="">Inicio</a> -->
+                         
     
                         @if (userRole=='ADMIN'){
-                            <a class="nav-link" routerLink="/admin" >Admin</a>
+                            <!-- <a class="nav-link" routerLink="/admin" >Admin</a> -->
+
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Admin</a>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" routerLink="/admin">Usuarios</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" routerLink="/admin/marcas">Marcas</a></li>
+                                <li><a class="dropdown-item" routerLink="/admin/modelos">Modelos</a></li>
+                                <li><a class="dropdown-item" routerLink="/admin/rines">Rines</a></li>
+                                <li><a class="dropdown-item" routerLink="/admin/llantas">Llantas</a></li>
+                                <li><a class="dropdown-item" routerLink="/admin/categoria-movimientos-inventario">Categoria movimientos inventario</a></li>
+                                <li><a class="dropdown-item" routerLink="/admin/control-movimientos-inventario">Control movimientos inventario</a></li>
+                                <li><a class="dropdown-item" routerLink="/admin/todos">Todos</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="https://www.linkedin.com/in/anthovega">Contacta a soporte</a></li>
+                              </ul>
+                            </li>
+                            
                         }
     
                         @if (userRole=='CAJERO' || userRole=='ADMIN' ){
