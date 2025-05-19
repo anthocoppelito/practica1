@@ -31,9 +31,31 @@ export class RegisterSaleComponent implements OnInit {
       products: this.formBuilder.array([])
     });
     
-    //agregar el primer producto al formulario
+    const lista = JSON.parse(localStorage.getItem('llantasParaVenta') || '[]');
+  if (lista.length > 0) {
+    // Si hay productos en la lista, solo agrega esos
+    lista.forEach((item: { id: number, cantidad: number }) => {
+      this.addProductConValores(item.id, item.cantidad);
+    });
+    // Limpia la lista después de usarla si lo deseas
+    localStorage.removeItem('llantasParaVenta');
+  } else {
+    // Si no hay productos en la lista, agrega un producto vacío
     this.addProduct();
   }
+    
+
+  }
+  // Ejemplo de método para agregar productos con valores iniciales:
+addProductConValores(id: number, cantidad: number) {
+  const productGroup = this.formBuilder.group({
+    id: [id],
+    amount: [cantidad],
+    price: [''],
+    total: ['']
+  });
+  this.products.push(productGroup);
+}
 
   // Método para agregar un nuevo producto al FormArray9
   addProduct(): void {

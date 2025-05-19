@@ -1,22 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { InventarioLlantas } from '../../../../../services/llanta/ctl_inventariollantas/inventariollantas';
 import { CtlInventariollantasService } from '../../../../../services/llanta/ctl_inventariollantas/ctl-inventariollantas.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Marcas } from '../../../../../services/llanta/cat_marcas/marcas';
 import { CatMarcasService } from '../../../../../services/llanta/cat_marcas/cat-marcas.service';
 import { CatModelosService } from '../../../../../services/llanta/cat_modelos/cat-modelos.service';
 import { CatRinesService } from '../../../../../services/llanta/cat_rines/cat-rines.service';
 import { Modelos } from '../../../../../services/llanta/cat_modelos/modelos';
 import { Rines } from '../../../../../services/llanta/cat_rines/rines';
+import { debounceTime } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ctl-inventariollantas',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './ctl-inventariollantas.component.html',
   styleUrl: './ctl-inventariollantas.component.css'
 })
 export class CtlInventariollantasComponent implements OnInit {
+
 
   inventarioLlantasForm!: FormGroup;
 
@@ -24,6 +27,59 @@ export class CtlInventariollantasComponent implements OnInit {
   marcas: Marcas[] = []; // Lista de marcas
   modelos: Modelos[] = []; // Lista de modelos
   rines: Rines[] = []; // Lista de rines
+
+  //modal de ventas
+  agregarVentaForm!: FormGroup;
+  llantaSeleccionada: any = null;
+  stockStatus: 'ok' | 'error' | '' = '';
+  listaVenta: { id: number, cantidad: number }[] = [];
+
+  // metodos de ventas
+  abrirModalAgregar(llanta: any) {
+    this.llantaSeleccionada = llanta;
+    this.stockStatus = '';
+    this.agregarVentaForm.reset();
+    // Abre el modal con Bootstrap JS
+    const modal = document.getElementById('modalAgregarVenta');
+    if (modal) {
+      (window as any).bootstrap.Modal.getOrCreateInstance(modal).show();
+    }
+  }
+
+  verificarStock(cantidad: number) {
+    if (!this.llantaSeleccionada) return;
+    if (cantidad > 0 && cantidad <= this.llantaSeleccionada.num_existencia) {
+      this.stockStatus = 'ok';
+    } else if (cantidad > this.llantaSeleccionada.num_existencia) {
+      this.stockStatus = 'error';
+    } else {
+      this.stockStatus = '';
+    }
+  }
+
+  confirmarAgregarVenta() {
+    if (this.stockStatus !== 'ok') return;
+    const id = this.llantaSeleccionada.idLlanta;
+    const cantidad = this.agregarVentaForm.value.cantidad;
+    // Leer lista actual
+    let lista = JSON.parse(localStorage.getItem('llantasParaVenta') || '[]');
+    // Evitar duplicados, pero permitir actualizar cantidad
+    const idx = lista.findIndex((item: any) => item.id === id);
+    if (idx === -1) {
+      lista.push({ id, cantidad });
+    } else {
+      lista[idx].cantidad = cantidad; // Actualiza cantidad si ya existe
+    }
+    localStorage.setItem('llantasParaVenta', JSON.stringify(lista));
+    // Cierra el modal
+    const modal = document.getElementById('modalAgregarVenta');
+    if (modal) {
+      (window as any).bootstrap.Modal.getInstance(modal).hide();
+    }
+  }
+
+
+
 
   constructor(
     private inventarioLlantasService: CtlInventariollantasService,
@@ -83,7 +139,23 @@ export class CtlInventariollantasComponent implements OnInit {
         this.inventarioLlantasForm.reset();
       });
     }
+
+    //agregarVentaForm
+    this.agregarVentaForm = this.fb.group({
+      cantidad: ['', [Validators.required, Validators.min(1)]]
+    });
+
+    // Detectar cambios en cantidad y verificar stock
+    this.agregarVentaForm.get('cantidad')!.valueChanges
+      .pipe(debounceTime(2000))
+      .subscribe(cantidad => {
+        this.verificarStock(cantidad);
+      });
   }
+
+  
+
+  
 
   registrarLlanta() {
     if (this.inventarioLlantasForm.valid) {
@@ -133,11 +205,5 @@ export class CtlInventariollantasComponent implements OnInit {
       });
 
     }
-
-
-    
-
-
-
   }
 }

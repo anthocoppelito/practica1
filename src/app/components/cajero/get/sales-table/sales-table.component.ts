@@ -42,6 +42,8 @@ export class SalesTableComponent implements OnInit {
     this.saleService.saleRegistered$.subscribe(() => {
     this.cargarVentas(); // tu método para recargar la tabla
     });
+
+    
   }
 
   

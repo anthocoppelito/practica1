@@ -11,6 +11,19 @@ import { RegisterSaleComponent } from "../../components/cajero/post/register-sal
   styleUrl: './cajero.component.css'
 })
 export class CajeroComponent {
+  actualizar() {
+    
+  }
+
+  
+
+  limpiar() {
+    localStorage.removeItem('llantasParaVenta');
+  }
+
+  llantas() {
+    this.router.navigate(['/cajero/llantas']);
+  }
 
   constructor(
     private router: Router

@@ -23,6 +23,7 @@ import { MarcasAdminComponent } from './components/admin/llantas-admin/marcas-ad
 import { ModelosAdminComponent } from './components/admin/llantas-admin/modelos-admin/modelos-admin.component';
 import { RinesAdminComponent } from './components/admin/llantas-admin/rines-admin/rines-admin.component';
 import { MovimientosinventarioAdminComponent } from './components/admin/llantas-admin/movimientosinventario-admin/movimientosinventario-admin.component';
+import { InventarioLlantasCajeroComponent } from './components/cajero/llantas-cajero/inventario-llantas-cajero/inventario-llantas-cajero.component';
 
 export const routes: Routes = [
     {path: 'perfil', component: DashboardComponent, canActivate: [authGuard]}, // Ruta protegida por login
@@ -39,6 +40,7 @@ export const routes: Routes = [
     {path: 'admin/todos', component: TodosllantasAdminComponent, canActivate: [authGuard, () => roleGuard(['ADMIN'])]},
     {path: 'admin/editar/:username', component: UserDetailComponent, canActivate: [authGuard, () => roleGuard(['ADMIN'])]},
     {path: 'cajero', component: CajeroComponent, canActivate: [authGuard, () => roleGuard(['CAJERO','ADMIN'])]},
+    {path: 'cajero/llantas', component: InventarioLlantasCajeroComponent, canActivate: [authGuard, () => roleGuard(['CAJERO','ADMIN'])]},
     {path: 'cajero/registrar', component: RegisterSaleComponent, canActivate: [authGuard, () => roleGuard(['CAJERO','ADMIN'])]},
     {path: 'cajero/detalle/:saleid', component: SalesDetailComponent, canActivate: [authGuard, () => roleGuard(['CAJERO','ADMIN'])]},
     {path: 'bodega', component: BodegaComponent, canActivate: [authGuard, () => roleGuard(['BODEGA','ADMIN'])]},

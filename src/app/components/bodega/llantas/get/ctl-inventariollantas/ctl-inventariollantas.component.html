@@ -16,7 +16,7 @@
           <th>Precio basico</th>
           <th>Fecha alta</th>
           <th>Número existencia</th>
-          <!-- <th>Acciones</th> -->
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -31,16 +31,18 @@
             <td>{{ llanta.num_preciobasico}}</td>
             <td>{{ llanta.fec_alta}}</td>
             <td>{{ llanta.num_existencia}}</td>
-            <!-- <td>
-                <button type="button" class="btn btn-outline-primary" (click)="editar(marca.id_marca)">Editar</button>
-            </td> -->
+            <td>
+                <button type="button" class="btn btn-success btn-sm" (click)="abrirModalAgregar(llanta)">
+                  Editar
+                </button>
+            </td>
           </tr>
         }
           
       </tbody>
     </table>
 </div>
-<!-- modal -->
+<!-- modal registrar llanta-->
 <div class="modal fade" id="modalLlantas" tabindex="-1" aria-labelledby="modalLlantasLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -88,6 +90,39 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-primary" [disabled]="inventarioLlantasForm.invalid">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para agregar cantidad -->
+ <div class="modal fade" id="modalAgregarVenta" tabindex="-1" aria-labelledby="modalAgregarVentaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="agregarVentaForm" (ngSubmit)="confirmarAgregarVenta()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAgregarVentaLabel">Agregar llanta a venta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="llantaSeleccionada">
+            <p><strong>ID:</strong> {{ llantaSeleccionada.idLlanta }}</p>
+            <p><strong>Marca:</strong> {{ llantaSeleccionada.marca?.nomMarcas ?? 'N/A' }}</p>
+            <p><strong>Modelo:</strong> {{ llantaSeleccionada.modelo?.nomModelos ?? 'N/A' }}</p>
+            <p><strong>Rin:</strong> {{ llantaSeleccionada.rines?.nomRin ?? 'N/A' }}</p>
+            <p><strong>Stock disponible:</strong> {{ llantaSeleccionada.num_existencia }}</p>
+          </div>
+          <div class="mb-3">
+            <label for="cantidadAgregar" class="form-label">Cantidad a agregar</label>
+            <input type="number" class="form-control" id="cantidadAgregar" formControlName="cantidad" min="1" required>
+            <div *ngIf="stockStatus === 'ok'" class="text-success mt-2">Stock disponible</div>
+            <div *ngIf="stockStatus === 'error'" class="text-danger mt-2">No hay suficiente stock</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="stockStatus !== 'ok'">Aceptar</button>
         </div>
       </form>
     </div>
