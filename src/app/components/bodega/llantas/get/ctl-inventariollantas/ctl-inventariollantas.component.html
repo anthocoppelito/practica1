@@ -32,8 +32,13 @@
             <td>{{ llanta.fec_alta}}</td>
             <td>{{ llanta.num_existencia}}</td>
             <td>
-                <button type="button" class="btn btn-success btn-sm" (click)="abrirModalAgregar(llanta)">
-                  Editar
+                <button 
+                type="button" 
+                class="btn btn-success btn-sm" 
+                (click)="abrirModalAgregar(llanta)"
+                [disabled]="esPaginaBodega"
+                >
+                  Vender
                 </button>
             </td>
           </tr>

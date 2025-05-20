@@ -10,6 +10,7 @@ import { Modelos } from '../../../../../services/llanta/cat_modelos/modelos';
 import { Rines } from '../../../../../services/llanta/cat_rines/rines';
 import { debounceTime } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ctl-inventariollantas',
@@ -33,6 +34,9 @@ export class CtlInventariollantasComponent implements OnInit {
   llantaSeleccionada: any = null;
   stockStatus: 'ok' | 'error' | '' = '';
   listaVenta: { id: number, cantidad: number }[] = [];
+
+  //que bodega no pueda vender
+  esPaginaBodega = false;
 
   // metodos de ventas
   abrirModalAgregar(llanta: any) {
@@ -86,9 +90,13 @@ export class CtlInventariollantasComponent implements OnInit {
     private marcasService: CatMarcasService,
     private modeloService: CatModelosService,
     private rinesService: CatRinesService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {}
   ngOnInit(): void {
+
+    this.esPaginaBodega = this.router.url === '/bodega';
+
     this.inventarioLlantasService.getAllInventarioLlanta().subscribe({
       next: (data) => {
         this.llantas = data; // Asignar las llantas a la variable

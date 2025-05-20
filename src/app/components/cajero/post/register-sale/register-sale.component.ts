@@ -32,30 +32,58 @@ export class RegisterSaleComponent implements OnInit {
     });
     
     const lista = JSON.parse(localStorage.getItem('llantasParaVenta') || '[]');
-  if (lista.length > 0) {
-    // Si hay productos en la lista, solo agrega esos
-    lista.forEach((item: { id: number, cantidad: number }) => {
-      this.addProductConValores(item.id, item.cantidad);
+    if (lista.length > 0) {
+      // Si hay productos en la lista, solo agrega esos
+      lista.forEach((item: { id: number, cantidad: number }) => {
+        this.addProductConValores(item.id, item.cantidad);
+      });
+      // Limpia la lista después de usarla si lo deseas
+      //localStorage.removeItem('llantasParaVenta');
+    } else {
+      // Si no hay productos en la lista, agrega un producto vacío
+      this.addProduct();
+    }
+    // Suscribirse a cambios en todo el formulario para actualizar localStorage
+    this.products.valueChanges.subscribe((productos: any[]) => {
+      // Guarda solo id y cantidad
+      const listaActualizada = productos.map(p => ({
+        id: p.id,
+        cantidad: p.amount
+      }));
+      localStorage.setItem('llantasParaVenta', JSON.stringify(listaActualizada));
     });
-    // Limpia la lista después de usarla si lo deseas
-    localStorage.removeItem('llantasParaVenta');
-  } else {
-    // Si no hay productos en la lista, agrega un producto vacío
-    this.addProduct();
-  }
-    
+
 
   }
+
   // Ejemplo de método para agregar productos con valores iniciales:
-addProductConValores(id: number, cantidad: number) {
-  const productGroup = this.formBuilder.group({
-    id: [id],
-    amount: [cantidad],
-    price: [''],
-    total: ['']
-  });
-  this.products.push(productGroup);
-}
+  addProductConValores(id: number, cantidad: number) {
+    const productGroup = this.formBuilder.group({
+      id: [id],
+      amount: [cantidad],
+      price: [''],
+      total: ['']
+    });
+
+    // Detectar cambios en los campos productname y amount
+    productGroup.valueChanges
+    .pipe(
+      debounceTime(1500), // Esperar 1.5 segundos después de que el usuario deje de escribir
+      distinctUntilChanged() // Evitar llamadas repetidas si los valores no cambian
+    )
+    .subscribe((values) => {
+      const { id, amount } = values;
+      if (id && amount) { // si ambos están presentes
+        this.fetchPriceAndTotal(Number(id), Number(amount), productGroup);
+      }
+    });
+    this.products.push(productGroup);
+
+    // Llama manualmente la primera vez
+    if (id && cantidad) {
+      this.fetchPriceAndTotal(Number(id), Number(cantidad), productGroup);
+    }
+  }
 
   // Método para agregar un nuevo producto al FormArray9
   addProduct(): void {
@@ -69,7 +97,7 @@ addProductConValores(id: number, cantidad: number) {
     // Detectar cambios en los campos productname y amount
     productGroup.valueChanges
     .pipe(
-      debounceTime(2000), // Esperar 2 segundos después de que el usuario deje de escribir
+      debounceTime(1500), // Esperar 1.5 segundos después de que el usuario deje de escribir
       distinctUntilChanged() // Evitar llamadas repetidas si los valores no cambian
     )
     .subscribe((values) => {
@@ -134,6 +162,7 @@ addProductConValores(id: number, cantidad: number) {
             }).then(() => {
               //enviar notificacion de venta registrada
               this._apiSale.notifySaleRegistered();
+              localStorage.removeItem('llantasParaVenta'); // Limpiar la lista de productos
 
               this.router.navigate(['/cajero']);
             })
