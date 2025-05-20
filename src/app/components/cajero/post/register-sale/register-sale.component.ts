@@ -37,21 +37,21 @@ export class RegisterSaleComponent implements OnInit {
       lista.forEach((item: { id: number, cantidad: number }) => {
         this.addProductConValores(item.id, item.cantidad);
       });
-      // Limpia la lista después de usarla si lo deseas
-      //localStorage.removeItem('llantasParaVenta');
+      
+      localStorage.removeItem('llantasParaVenta');
     } else {
       // Si no hay productos en la lista, agrega un producto vacío
       this.addProduct();
     }
-    // Suscribirse a cambios en todo el formulario para actualizar localStorage
-    this.products.valueChanges.subscribe((productos: any[]) => {
-      // Guarda solo id y cantidad
-      const listaActualizada = productos.map(p => ({
-        id: p.id,
-        cantidad: p.amount
-      }));
-      localStorage.setItem('llantasParaVenta', JSON.stringify(listaActualizada));
-    });
+    // // Suscribirse a cambios en todo el formulario para actualizar localStorage
+    // this.products.valueChanges.subscribe((productos: any[]) => {
+    //   // Guarda solo id y cantidad
+    //   const listaActualizada = productos.map(p => ({
+    //     id: p.id,
+    //     cantidad: p.amount
+    //   }));
+    //   localStorage.setItem('llantasParaVenta', JSON.stringify(listaActualizada));
+    // });
 
 
   }
@@ -66,7 +66,7 @@ export class RegisterSaleComponent implements OnInit {
     });
 
     // Detectar cambios en los campos productname y amount
-    productGroup.valueChanges
+    const subscription = productGroup.valueChanges
     .pipe(
       debounceTime(1500), // Esperar 1.5 segundos después de que el usuario deje de escribir
       distinctUntilChanged() // Evitar llamadas repetidas si los valores no cambian
@@ -77,6 +77,8 @@ export class RegisterSaleComponent implements OnInit {
         this.fetchPriceAndTotal(Number(id), Number(amount), productGroup);
       }
     });
+    (productGroup as any)._subscription = subscription;
+
     this.products.push(productGroup);
 
     // Llama manualmente la primera vez
@@ -95,7 +97,7 @@ export class RegisterSaleComponent implements OnInit {
     });
 
     // Detectar cambios en los campos productname y amount
-    productGroup.valueChanges
+    const subscription = productGroup.valueChanges
     .pipe(
       debounceTime(1500), // Esperar 1.5 segundos después de que el usuario deje de escribir
       distinctUntilChanged() // Evitar llamadas repetidas si los valores no cambian
@@ -106,6 +108,7 @@ export class RegisterSaleComponent implements OnInit {
         this.fetchPriceAndTotal(Number(id), Number(amount), productGroup);
       }
     });
+    (productGroup as any)._subscription = subscription;
 
     
 
@@ -188,6 +191,7 @@ export class RegisterSaleComponent implements OnInit {
     } else {
       console.error('Formulario inválido');
     }
+    this.clearForm();
   }
 
   allowOnlyNumbers(event: KeyboardEvent): void {
@@ -197,10 +201,30 @@ export class RegisterSaleComponent implements OnInit {
     }
   }
   get totalVenta(): number {
-  return this.products.controls
-    .map(ctrl => Number(ctrl.value.total) || 0)
-    .reduce((acc, curr) => acc + curr, 0);
-}
+    return this.products.controls
+      .map(ctrl => Number(ctrl.value.total) || 0)
+      .reduce((acc, curr) => acc + curr, 0);
+  }
+
+  // Método para eliminar un producto del FormArray
+  removeProduct(index: number): void {
+    this.products.removeAt(index);
+  }
+
+  // Método para limpiar el formulario
+  clearForm(): void {
+    // Desuscribirse de los cambios de cada FormGroup
+    this.products.controls.forEach(ctrl => {
+      const sub = (ctrl as any)._subscription;
+      if (sub) {
+        sub.unsubscribe();
+      }
+    });
+    this.registerForm.reset();
+    this.products.clear(); // Limpiar el FormArray
+    localStorage.removeItem('llantasParaVenta'); // Limpiar la lista de productos
+    //this.addProduct(); // Agregar un nuevo producto vacío
+  }
 
 
 

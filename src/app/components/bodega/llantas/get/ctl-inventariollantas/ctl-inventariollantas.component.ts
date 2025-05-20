@@ -155,7 +155,7 @@ export class CtlInventariollantasComponent implements OnInit {
 
     // Detectar cambios en cantidad y verificar stock
     this.agregarVentaForm.get('cantidad')!.valueChanges
-      .pipe(debounceTime(2000))
+      .pipe(debounceTime(1000))
       .subscribe(cantidad => {
         this.verificarStock(cantidad);
       });

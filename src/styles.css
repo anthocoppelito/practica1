@@ -1,3 +1,8 @@
+/* al minimizar no sera menor a este tamaño */
+body{
+    min-width: 100vh;
+}
+
 /* Configuracion global sobre si es valido o no los formularuios */
 .ng-valid:not(form).ng-touched{
     border-left: 5px solid #42A948;

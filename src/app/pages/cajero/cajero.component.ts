@@ -19,6 +19,8 @@ export class CajeroComponent {
 
   limpiar() {
     localStorage.removeItem('llantasParaVenta');
+    this.router.navigate(['/cajero']);
+
   }
 
   llantas() {
