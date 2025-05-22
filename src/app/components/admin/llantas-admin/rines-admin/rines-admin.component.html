@@ -1,10 +1,18 @@
 <div class="container">
     <div class="card">
         <div class="card-header">Rines</div>
+
         <div class="card-body m-0">
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalRines">
-                Agregar rines
-            </button>
+
+            <!-- Formulario para agregar rin directamente -->
+            <form [formGroup]="rinForm" (ngSubmit)="registrarRin()" class="row g-3 mb-3">
+                <div class="col-auto">
+                    <input type="text" class="form-control" formControlName="nomRin" placeholder="Nombre del rin" required>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary" [disabled]="rinForm.invalid">Agregar rin</button>
+                </div>
+            </form>
             <app-cat-rines/>
         </div>
     </div>

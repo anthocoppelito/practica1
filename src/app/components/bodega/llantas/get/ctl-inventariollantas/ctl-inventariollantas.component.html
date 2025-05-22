@@ -61,7 +61,7 @@
             <label for="marca" class="form-label">Marca</label>
             <select class="form-select" id="marca" formControlName="id_marca" required>
               @for (marca of marcas;track $index){
-                <option [value]="marca.id_marca">{{marca.nomMarcas}}</option>
+                <option [value]="marca.idMarca">{{marca.nomMarcas}}</option>
 
               }
             </select>
@@ -70,7 +70,7 @@
             <label for="modelo" class="form-label">Modelo</label>
             <select class="form-select" id="modelo" formControlName="id_modelo" required>
               @for (modelo of modelos;track $index){
-                <option [value]="modelo.id_modelo">{{modelo.nomModelos}}</option>
+                <option [value]="modelo.idModelo">{{modelo.nomModelos}}</option>
               }
             </select>
           </div>
@@ -78,7 +78,7 @@
             <label for="rin" class="form-label">Rin</label>
             <select class="form-select" id="rin" formControlName="id_rin" required>
               @for (rin of rines;track $index){
-                <option [value]="rin.id_rin">{{rin.nomRin}}</option>
+                <option [value]="rin.idRin">{{rin.nomRin}}</option>
               }
               
             </select>

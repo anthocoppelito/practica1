@@ -17,27 +17,13 @@
     
 
     @if (selectedCard === 'todos' || selectedCard === 'marca') {
-    <div class="card">
-        <div class="card-header">Marca</div>
-        <div class="card-body m-0">
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalMarca">
-                Agregar marca
-            </button>
-            <app-cat-marcas/>
-        </div>
-    </div>
+        <app-marcas-admin/>
+    
     }
 
     @if (selectedCard === 'todos' || selectedCard === 'modelo') {
-    <div class="card">
-        <div class="card-header">Modelo</div>
-        <div class="card-body m-0">
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalModelo">
-                Agregar modelo
-            </button>
-            <app-cat-modelos/>
-        </div>
-    </div>
+        <app-modelos-admin/>
+    
     }
 
     @if (selectedCard === 'todos' || selectedCard === 'categoria') {
@@ -53,15 +39,8 @@
     }
 
     @if (selectedCard === 'todos' || selectedCard === 'rines') {
-    <div class="card">
-        <div class="card-header">Rines</div>
-        <div class="card-body m-0">
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalRines">
-                Agregar rines
-            </button>
-            <app-cat-rines/>
-        </div>
-    </div>
+        <app-rines-admin/>
+    
     }
 
     @if (selectedCard === 'todos' || selectedCard === 'inventario') {

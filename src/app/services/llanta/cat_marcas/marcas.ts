@@ -1,7 +1,7 @@
 export interface Marcas{
-    id_marca: number;
+    idMarca: number;
     nomMarcas: string;
-    fec_alta: Date | null;
-    opc_activo: Boolean | null;
+    fecAlta: Date | null;
+    opcActivo: Boolean | null;
 
 }

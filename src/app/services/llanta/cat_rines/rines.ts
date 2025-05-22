@@ -1,6 +1,6 @@
 export interface Rines{
-    id_rin: number;
+    idRin: number;
     nomRin: string | null;
-    fec_alta: Date;
-    opc_activo: Boolean;
+    fecAlta: Date;
+    opcActivo: Boolean;
 }

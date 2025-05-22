@@ -1,10 +1,17 @@
 <div class="container">
-<div class="card">
+    <div class="card">
         <div class="card-header">Modelo</div>
+
         <div class="card-body m-0">
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalModelo">
-                Agregar modelo
-            </button>
+            <!-- Formulario para agregar modelo directamente -->
+            <form [formGroup]="modeloForm" (ngSubmit)="registrarModelo()" class="row g-3 mb-3">
+                <div class="col-auto">
+                    <input type="text" class="form-control" formControlName="nomModelos" placeholder="Nombre del modelo" required>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary" [disabled]="modeloForm.invalid">Agregar modelo</button>
+                </div>
+            </form>
             <app-cat-modelos/>
         </div>
     </div>

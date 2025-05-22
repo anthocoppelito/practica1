@@ -21,4 +21,12 @@ export class CatMarcasService {
   register(marca: MarcasDTO): Observable<String> {
     return this.http.post(environment.urlApi2+"marcas/register", marca, { responseType: 'text' });
   }
+  //editar marcas
+  edit(idMarca: number, nomMarcas: string): Observable<String> {
+    return this.http.put(environment.urlApi2+"marcas/edit", {idMarca,nomMarcas}, { responseType: 'text' });
+  }
+  //eliminar marcas
+  delete(idMarca: number): Observable<String> {
+    return this.http.put(environment.urlApi2+"marcas/delete" , {idMarca}, { responseType: 'text' });
+  }
 }

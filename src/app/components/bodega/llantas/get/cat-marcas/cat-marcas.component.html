@@ -6,7 +6,7 @@
           <th>Nombre marca</th>
           <th>Fecha Alta</th>
           <th>Estado</th>
-          <!-- <th>Acciones</th> -->
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -14,13 +14,14 @@
         @for (marca of marcas; track $index){
           <tr>
             <!-- <td>{{ user.id }}</td> -->
-            <td>{{ marca.id_marca }}</td>
+            <td>{{ marca.idMarca }}</td>
             <td>{{ marca.nomMarcas }}</td>
-            <td>{{ marca.fec_alta ?? 'N/A' }}</td>
-            <td>{{ marca.opc_activo ?? 'N/A' }}</td>
-            <!-- <td>
-              <button type="button" class="btn btn-outline-primary" (click)="editar(marca.id_marca)">Editar</button>
-            </td> -->
+            <td>{{ marca.fecAlta ?? 'N/A' }}</td>
+            <td>{{ marca.opcActivo ?? 'N/A' }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-primary" (click)="editar(marca.idMarca)">Editar</button>
+              <button type="button" class="btn btn-outline-primary" (click)="borrar(marca.idMarca)">Borrar</button>
+            </td>
           </tr>
         }
       </tbody>
@@ -32,7 +33,9 @@
     <div class="modal-content">
       <form [formGroup]="marcaForm" (ngSubmit)="registrarMarca()">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalMarcaLabel">Registrar nueva marca</h5>
+          <h5 class="modal-title" id="modalMarcaLabel">
+            {{ editando ? 'Editar marca' : 'Registrar nueva marca' }}
+          </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
@@ -43,7 +46,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary" [disabled]="marcaForm.invalid">Registrar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="marcaForm.invalid">
+            {{ editando ? 'Guardar cambios' : 'Registrar' }}
+          </button>
         </div>
       </form>
     </div>

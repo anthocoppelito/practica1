@@ -1,7 +1,7 @@
 export interface Modelos{
-    id_modelo: number;
+    idModelo: number;
     nomModelos: String | null;
-    fec_alta: Date;
-    opc_activo: Boolean;
+    fecAlta: Date;
+    opcActivo: Boolean;
 
 }
