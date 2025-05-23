@@ -20,6 +20,16 @@ import { Router } from '@angular/router';
   styleUrl: './ctl-inventariollantas.component.css'
 })
 export class CtlInventariollantasComponent implements OnInit {
+stockllanta(_t19: InventarioLlantas) {
+throw new Error('Method not implemented.');
+}
+borrarLlanta //conseguir los rines
+(arg0: number) {
+throw new Error('Method not implemented.');
+}
+abrirModalEditar(_t19: InventarioLlantas) {
+throw new Error('Method not implemented.');
+}
 
 
   inventarioLlantasForm!: FormGroup;

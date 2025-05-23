@@ -4,9 +4,9 @@
         <tr>
           <th>Modelo ID</th>
           <th>Nombre modelo</th>
-          <th>Fecha Alta</th>
-          <th>Estado</th>
-          <!-- <th>Acciones</th> -->
+          <th>Fecha Alta/Último cambio</th>
+          <!-- <th>Estado</th> -->
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -16,11 +16,12 @@
 
             <td>{{ modelo.idModelo }}</td>
             <td>{{ modelo.nomModelos ?? 'N/A' }}</td>
-            <td>{{ modelo.fecAlta }}</td>
-            <td>{{ modelo.opcActivo }}</td>
-            <!-- <td>
-              <button type="button" class="btn btn-outline-primary" (click)="editar(modelo.id_modelo)">Editar</button>
-            </td> -->
+            <td>{{ modelo.fecAlta ? (modelo.fecAlta | date:'dd/MM/yyyy H:mm:ss a') : 'N/A' }}</td>
+            <!-- <td>{{ modelo.opcActivo }}</td> -->
+            <td>
+              <button type="button" class="btn btn-outline-primary" (click)="editar(modelo.idModelo)">Editar</button>
+              <button type="button" class="btn btn-outline-danger" (click)="borrar(modelo.idModelo)">Borrar</button>
+            </td>
           </tr>
         }    
       </tbody>
@@ -32,7 +33,9 @@
       <div class="modal-content">
         <form [formGroup]="modeloForm" (ngSubmit)="registrarModelo()">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalModeloLabel">Registrar nuevo modelo</h5>
+            <h5 class="modal-title" id="modalMarcaLabel">
+            {{ editando ? 'Editar modelo' : 'Registrar nuevo modelo' }}
+            </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
           </div>
           <div class="modal-body">
@@ -43,7 +46,9 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary" [disabled]="modeloForm.invalid">Registrar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="modeloForm.invalid">
+              {{ editando ? 'Guardar cambios' : 'Registrar' }}
+            </button>
           </div>
         </form>
       </div>

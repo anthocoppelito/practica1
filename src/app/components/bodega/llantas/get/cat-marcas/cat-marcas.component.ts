@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { Marcas } from '../../../../../services/llanta/cat_marcas/marcas';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cat-marcas',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './cat-marcas.component.html',
   styleUrl: './cat-marcas.component.css'
 })
@@ -155,6 +156,6 @@ export class CatMarcasComponent implements OnInit {
       console.error('Error al obtener las marcas:', err);
     }
   });
-}
+  }
 
 }

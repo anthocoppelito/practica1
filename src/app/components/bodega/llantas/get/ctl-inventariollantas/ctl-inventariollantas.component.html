@@ -1,51 +1,73 @@
 <div class="buscador">
-    <div class="input-group mb-4">
-        <button class="input-group-text" (click)="buscar(busqueda.value)">Buscar</button>
-        <input #busqueda type="text" class="form-control" (keyup.enter)="buscar(busqueda.value)" placeholder="Buscar por id, marca, modelo o rin">
+  <div class="input-group mb-4">
+    <button class="input-group-text" (click)="buscar(busqueda.value)">Buscar</button>
+    <input #busqueda type="text" class="form-control" (keyup.enter)="buscar(busqueda.value)" placeholder="Buscar por id, marca, modelo o rin">
+  </div>
 </div>
-</div>
+
 <div class="table-container">
-    <table>
-      <thead>
+  <table>
+    <thead>
+      <tr>
+        <th>Llanta ID</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Rin</th>
+        <th>Precio basico</th>
+        <th>Fecha Alta/Último cambio</th>
+        <th>Número existencia</th>
+        <th>Acciones</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      @for (llanta of llantas; track $index){
         <tr>
-          <!-- <th>ID</th> -->
-          <th>Llanta ID</th>
-          <th>Marca</th>
-          <th>Modelo</th>
-          <th>Rin</th>
-          <th>Precio basico</th>
-          <th>Fecha alta</th>
-          <th>Número existencia</th>
-          <th>Acciones</th>
+          <td>{{ llanta.idLlanta }}</td>
+          <td>{{ llanta.marca?.nomMarcas ?? 'N/A' }}</td>
+          <td>{{ llanta.modelo?.nomModelos ?? 'N/A' }}</td>
+          <td>{{ llanta.rines?.nomRin ?? 'N/A'}}</td>
+          <td>{{ llanta.num_preciobasico}}</td>
+          <td>{{ llanta.fec_alta ? (llanta.fec_alta| date:'dd/MM/yyyy H:mm:ss a') : 'N/A' }}</td>
+          <td>{{ llanta.num_existencia}}</td>
+          <td>
+            <button 
+              type="button" 
+              class="btn btn-outline-success" 
+              (click)="abrirModalAgregar(llanta)"
+              [disabled]="esPaginaBodega"
+            >
+              Vender
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-outline-primary" 
+              (click)="abrirModalEditar(llanta)"
+              [disabled]="esPaginaBodega"
+            >
+              Editar
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-outline-danger" 
+              (click)="borrarLlanta(llanta.idLlanta)"
+              [disabled]="esPaginaBodega"
+            >
+              Borrar
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-outline-warning" 
+              (click)="stockllanta(llanta)"
+              [disabled]="esPaginaBodega"
+            >
+              Stock 
+            </button>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <!-- Usar @for con la sintaxis correcta -->
-        @for (llanta of llantas; track $index){
-          <tr>
-            <!-- <td>{{ user.id }}</td> -->
-            <td>{{ llanta.idLlanta }}</td>
-            <td>{{ llanta.marca?.nomMarcas ?? 'N/A' }}</td>
-            <td>{{ llanta.modelo?.nomModelos ?? 'N/A' }}</td>
-            <td>{{ llanta.rines?.nomRin ?? 'N/A'}}</td>
-            <td>{{ llanta.num_preciobasico}}</td>
-            <td>{{ llanta.fec_alta}}</td>
-            <td>{{ llanta.num_existencia}}</td>
-            <td>
-                <button 
-                type="button" 
-                class="btn btn-success btn-sm" 
-                (click)="abrirModalAgregar(llanta)"
-                [disabled]="esPaginaBodega"
-                >
-                  Vender
-                </button>
-            </td>
-          </tr>
-        }
-          
-      </tbody>
-    </table>
+      }          
+    </tbody>
+  </table>
 </div>
 <!-- modal registrar llanta-->
 <div class="modal fade" id="modalLlantas" tabindex="-1" aria-labelledby="modalLlantasLabel" aria-hidden="true">
@@ -80,7 +102,6 @@
               @for (rin of rines;track $index){
                 <option [value]="rin.idRin">{{rin.nomRin}}</option>
               }
-              
             </select>
           </div>
           <div class="mb-3">

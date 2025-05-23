@@ -4,8 +4,8 @@
         <tr>
           <th>Marca ID</th>
           <th>Nombre marca</th>
-          <th>Fecha Alta</th>
-          <th>Estado</th>
+          <th>Fecha Alta/Último cambio</th>
+          <!-- <th>Estado</th> -->
           <th>Acciones</th>
         </tr>
       </thead>
@@ -16,11 +16,11 @@
             <!-- <td>{{ user.id }}</td> -->
             <td>{{ marca.idMarca }}</td>
             <td>{{ marca.nomMarcas }}</td>
-            <td>{{ marca.fecAlta ?? 'N/A' }}</td>
-            <td>{{ marca.opcActivo ?? 'N/A' }}</td>
+            <td>{{ marca.fecAlta ? (marca.fecAlta | date:'dd/MM/yyyy H:mm:ss a') : 'N/A' }}</td>
+            <!-- <td>{{ marca.opcActivo ?? 'N/A' }}</td> -->
             <td>
               <button type="button" class="btn btn-outline-primary" (click)="editar(marca.idMarca)">Editar</button>
-              <button type="button" class="btn btn-outline-primary" (click)="borrar(marca.idMarca)">Borrar</button>
+              <button type="button" class="btn btn-outline-danger" (click)="borrar(marca.idMarca)">Borrar</button>
             </td>
           </tr>
         }

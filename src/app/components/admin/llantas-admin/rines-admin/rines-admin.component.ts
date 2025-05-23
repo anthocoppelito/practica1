@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CatRinesComponent } from "../../../bodega/llantas/get/cat-rines/cat-rines.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CatRinesService } from '../../../../services/llanta/cat_rines/cat-rines.service';
@@ -12,6 +12,7 @@ import { CatRinesService } from '../../../../services/llanta/cat_rines/cat-rines
 })
 export class RinesAdminComponent implements OnInit {
 
+  @ViewChild(CatRinesComponent) catRinesComp!: CatRinesComponent;
   rinForm! : FormGroup;
 
   constructor(
@@ -30,6 +31,9 @@ export class RinesAdminComponent implements OnInit {
         next: () => {
           this.rinForm.reset();
           // Aquí puedes recargar la lista si lo necesitas
+          if (this.catRinesComp) {
+            this.catRinesComp.recargarRines();
+          }
         },
         error: (err) => {
           // Maneja el error

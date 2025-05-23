@@ -20,4 +20,13 @@ export class CatRinesService {
   register(rines: RinesDTO): Observable<String> {
     return this.http.post(environment.urlApi2 + "rines/register", rines, { responseType: 'text' });
   }
+
+  //editar rines
+  edit(idRin: number, nomRin: string): Observable<String> {
+    return this.http.put(environment.urlApi2 + "rines/edit", { idRin, nomRin }, { responseType: 'text' });
+  }
+  //eliminar rines
+  delete(idRin: number): Observable<String> {
+    return this.http.put(environment.urlApi2 + "rines/delete", { idRin }, { responseType: 'text' });
+  }
 }

@@ -1,12 +1,15 @@
 <div class="container">
     @if(userLoginOn){
         <p>Bienvenido de vuelta {{user2?.firstname}}!</p>
+        <p>Si tienes un problema contacta a un administrador</p>
+        <img src ="../../../assets/images/coppeltienda2.jpeg" >
+        
     }
     @if(!userLoginOn) {
         <p>Inicia sesion en el boton "iniciar sesion"</p>
     }
 
-    <div class="card">
+    <!-- <div class="card">
         <div class="card-header">
             Datos
         </div>
@@ -24,7 +27,7 @@
             <app-change-password/>
         </div>
         <br>
-    </div>
+    </div> -->
     <br>
 
 </div>

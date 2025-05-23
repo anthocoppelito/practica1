@@ -8,9 +8,9 @@
             <option value="todos">Todos</option>
             <option value="marca">Marca</option>
             <option value="modelo">Modelo</option>
-            <option value="categoria">Categoria Movimientos Inventario</option>
             <option value="rines">Rines</option>
             <option value="inventario">Inventario llantas</option>
+            <option value="categoria">Categoria Movimientos Inventario</option>
             <option value="control">Control movimientos inventario</option>
         </select>
     </div>
@@ -26,6 +26,14 @@
     
     }
 
+    @if (selectedCard === 'todos' || selectedCard === 'rines') {
+        <app-rines-admin/>
+    }
+
+    @if (selectedCard === 'todos' || selectedCard === 'inventario') {
+        <app-ctlinventariollantas-admin/>
+    }
+
     @if (selectedCard === 'todos' || selectedCard === 'categoria') {
     <div class="card">
         <div class="card-header">Categoria Movimientos Inventario</div>
@@ -38,22 +46,9 @@
     </div>
     }
 
-    @if (selectedCard === 'todos' || selectedCard === 'rines') {
-        <app-rines-admin/>
     
-    }
 
-    @if (selectedCard === 'todos' || selectedCard === 'inventario') {
-    <div class="card">
-        <div class="card-header">Inventario llantas</div>
-        <div class="card-body m-0">
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalLlantas">
-                Agregar llantas
-            </button>
-            <app-ctl-inventariollantas/>
-        </div>
-    </div>
-    }
+    
 
     @if (selectedCard === 'todos' || selectedCard === 'control') {
     <div class="card">

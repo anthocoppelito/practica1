@@ -3,11 +3,11 @@
       <thead>
         <tr>
           <!-- <th>ID</th> -->
-          <th>Marca ID</th>
-          <th>Nombre marca</th>
-          <th>Fecha Alta</th>
-          <th>Estado</th>
-          <!-- <th>Acciones</th> -->
+          <th>Rin ID</th>
+          <th>Nombre Rin</th>
+          <th>Fecha Alta/Último cambio</th>
+          <!-- <th>Estado</th> -->
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -17,11 +17,14 @@
             <!-- <td>{{ user.id }}</td> -->
             <td>{{ ri.idRin }}</td>
             <td>{{ ri.nomRin ?? 'N/A' }}</td>
-            <td>{{ ri.fecAlta }}</td>
-            <td>{{ ri.opcActivo }}</td>
-            <!-- <td>
-              <button type="button" class="btn btn-outline-primary" (click)="editar(marca.id_marca)">Editar</button>
-            </td> -->
+            <td>{{ ri.fecAlta ? (ri.fecAlta | date:'dd/MM/yyyy H:mm:ss a') : 'N/A' }}</td>
+            <!-- <td>{{ ri.opcActivo }}</td> -->
+            <td>
+              <button type="button" class="btn btn-outline-primary" (click)="editar(ri.idRin)">Editar</button>
+              <button type="button" class="btn btn-outline-danger" (click)="borrar(ri.idRin)">Borrar</button>
+
+
+            </td>   
           </tr>
         }
           
@@ -34,7 +37,9 @@
     <div class="modal-content">
       <form [formGroup]="rinForm" (ngSubmit)="registrarRin()">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalRinesLabel">Registrar nuevo rin</h5>
+          <h5 class="modal-title" id="modalMarcaLabel">
+            {{ editando ? 'Editar marca' : 'Registrar nueva marca' }}
+          </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
@@ -45,7 +50,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary" [disabled]="rinForm.invalid">Registrar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="rinForm.invalid">
+            {{ editando ? 'Guardar cambios' : 'Registrar' }}
+          </button>
         </div>
       </form>
     </div>

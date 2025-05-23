@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CatModelosComponent } from "../../../bodega/llantas/get/cat-modelos/cat-modelos.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CatModelosService } from '../../../../services/llanta/cat_modelos/cat-modelos.service';
@@ -12,6 +12,7 @@ import { CatModelosService } from '../../../../services/llanta/cat_modelos/cat-m
 })
 export class ModelosAdminComponent implements OnInit {
 
+  @ViewChild(CatModelosComponent) catModelosComp!: CatModelosComponent;
   modeloForm!: FormGroup;
 
   constructor(
@@ -31,6 +32,9 @@ export class ModelosAdminComponent implements OnInit {
         next: () => {
           this.modeloForm.reset();
           // Aquí puedes recargar la lista si lo necesitas
+          if (this.catModelosComp) {
+            this.catModelosComp.recargarModelos();
+          }
         },
         error: (err) => {
           // Maneja el error
