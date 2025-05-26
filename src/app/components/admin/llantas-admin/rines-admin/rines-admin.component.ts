@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CatRinesComponent } from "../../../bodega/llantas/get/cat-rines/cat-rines.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CatRinesService } from '../../../../services/llanta/cat_rines/cat-rines.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-rines-admin',
@@ -36,7 +37,11 @@ export class RinesAdminComponent implements OnInit {
           }
         },
         error: (err) => {
-          // Maneja el error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al registrar los rines',
+            text: err.error || 'Ocurrió un error al registrar los rines.'
+            })
         }
       });
     }

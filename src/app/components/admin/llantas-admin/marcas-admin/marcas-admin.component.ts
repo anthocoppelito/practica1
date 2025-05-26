@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CatMarcasComponent } from "../../../bodega/llantas/get/cat-marcas/cat-marcas.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CatMarcasService } from '../../../../services/llanta/cat_marcas/cat-marcas.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-marcas-admin',
@@ -38,7 +39,11 @@ export class MarcasAdminComponent implements OnInit {
           }
         },
         error: (err) => {
-          // Maneja el error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al registrar la marca',
+            text: err.error || 'Ocurrió un error al registrar la marca.'
+          })
         }
       });
     }

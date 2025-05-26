@@ -11,6 +11,8 @@ import { Rines } from '../../../../../services/llanta/cat_rines/rines';
 import { debounceTime } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { InventarioLlantasEdit } from '../../../../../services/llanta/ctl_inventariollantas/inventariollantasEdit';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ctl-inventariollantas',
@@ -20,16 +22,8 @@ import { Router } from '@angular/router';
   styleUrl: './ctl-inventariollantas.component.css'
 })
 export class CtlInventariollantasComponent implements OnInit {
-stockllanta(_t19: InventarioLlantas) {
-throw new Error('Method not implemented.');
-}
-borrarLlanta //conseguir los rines
-(arg0: number) {
-throw new Error('Method not implemented.');
-}
-abrirModalEditar(_t19: InventarioLlantas) {
-throw new Error('Method not implemented.');
-}
+
+
 
 
   inventarioLlantasForm!: FormGroup;
@@ -45,6 +39,13 @@ throw new Error('Method not implemented.');
   stockStatus: 'ok' | 'error' | '' = '';
   listaVenta: { id: number, cantidad: number }[] = [];
 
+  //modal de editar llanta
+  editarLlantaForm!: FormGroup;
+
+  //modal de stock
+  stockForm!: FormGroup;
+
+
   //que bodega no pueda vender
   esPaginaBodega = false;
 
@@ -59,6 +60,29 @@ throw new Error('Method not implemented.');
       (window as any).bootstrap.Modal.getOrCreateInstance(modal).show();
     }
   }
+
+  
+
+  confirmarEditarLlanta() {
+  if (this.editarLlantaForm.valid) {
+    const datos = this.editarLlantaForm.value;
+    this.inventarioLlantasService.edit(datos).subscribe({
+      next: () => {
+        // Cierra el modal
+        const modal = document.getElementById('modalEditarLlanta');
+        if (modal) {
+          (window as any).bootstrap.Modal.getInstance(modal).hide();
+        }
+        // Recarga la lista de llantas
+        this.cargarLlantas();
+      },
+      error: (err) => {
+        // Maneja el error
+      }
+    });
+  }
+}
+
 
   verificarStock(cantidad: number) {
     if (!this.llantaSeleccionada) return;
@@ -95,6 +119,7 @@ throw new Error('Method not implemented.');
 
 
 
+
   constructor(
     private inventarioLlantasService: CtlInventariollantasService,
     private marcasService: CatMarcasService,
@@ -107,14 +132,8 @@ throw new Error('Method not implemented.');
 
     this.esPaginaBodega = this.router.url === '/bodega';
 
-    this.inventarioLlantasService.getAllInventarioLlanta().subscribe({
-      next: (data) => {
-        this.llantas = data; // Asignar las llantas a la variable
-      },
-      error: (err) => {
-        console.error('Error al obtener las llantas:', err);
-      }
-    })
+    this.cargarLlantas();
+  
     //conseguir las marcas
     this.marcasService.getAllMarcas().subscribe({
       next: (data) => {
@@ -169,6 +188,36 @@ throw new Error('Method not implemented.');
       .subscribe(cantidad => {
         this.verificarStock(cantidad);
       });
+
+      //creacion de formulario para editar llanta
+    this.editarLlantaForm = this.fb.group({
+      idLlanta: ['', Validators.required],
+      idMarca: ['', Validators.required],
+      idModelo: ['', Validators.required],
+      idRin: ['', Validators.required],
+      numPreciobasico: ['', [Validators.required, Validators.min(0)]],
+      numExistencia: ['', [Validators.required, Validators.min(0)]]
+    });
+    // Limpia el formulario cuando el modal se cierra
+    const modalEditar = document.getElementById('modalEditarLlanta');
+    if (modalEditar) {
+      modalEditar.addEventListener('hidden.bs.modal', () => {
+        this.editarLlantaForm.reset();
+      });
+    }
+
+
+    //creacion de formulario para stock
+    this.stockForm = this.fb.group({
+      cantidad: ['', [Validators.required, Validators.min(0)]]
+    });
+    // Limpia el formulario cuando el modal se cierra
+    const modalStock = document.getElementById('modalAgregarStock');
+    if (modalStock) {
+      modalStock.addEventListener('hidden.bs.modal', () => {
+        this.stockForm.reset();
+      });
+    }
   }
 
   
@@ -185,14 +234,15 @@ throw new Error('Method not implemented.');
             (window as any).bootstrap.Modal.getInstance(modal).hide();
           }
           this.inventarioLlantasForm.reset();
-          this.inventarioLlantasService.getAllInventarioLlanta().subscribe({
-            next: (data) => {
-              this.llantas = data; // Asignar las llantas a la variable
-            },
-            error: (err) => {
-              console.error('Error al obtener las llantas:', err);
-            }
-          });
+          this.cargarLlantas();
+          // this.inventarioLlantasService.getAllInventarioLlanta().subscribe({
+          //   next: (data) => {
+          //     this.llantas = data; // Asignar las llantas a la variable
+          //   },
+          //   error: (err) => {
+          //     console.error('Error al obtener las llantas:', err);
+          //   }
+          // });
         },
         error: (err) => {
           console.error('Error al registrar la llanta:', err);
@@ -223,5 +273,100 @@ throw new Error('Method not implemented.');
       });
 
     }
+  }
+
+  cargarLlantas(){
+    this.inventarioLlantasService.getAllInventarioLlanta().subscribe({
+      next: (data) => {
+        this.llantas = data; // Asignar las llantas a la variable
+      },
+      error: (err) => {
+        console.error('Error al obtener las llantas:', err);
+      }
+    });
+  }
+
+  //metodo de editar llanta
+  abrirModalEditar(llanta: InventarioLlantas) {
+    this.editarLlantaForm.patchValue({
+      idLlanta: llanta.idLlanta,
+      idMarca: llanta.marca?.idMarca,
+      idModelo: llanta.modelo?.idModelo,
+      idRin: llanta.rines?.idRin,
+      numPreciobasico: llanta.num_preciobasico,
+      numExistencia: llanta.num_existencia
+    });
+
+    // Abre el modal con Bootstrap JS
+    const modal = document.getElementById('modalEditarLlanta');
+    if (modal) {
+      (window as any).bootstrap.Modal.getOrCreateInstance(modal).show();
+    }
+  }
+
+  eliminarLlanta(idllanta: number) {
+    this.inventarioLlantasService.delete(idllanta).subscribe({
+      next: () => {
+        // Éxito
+        Swal.fire('Eliminado', 'La llanta fue eliminada correctamente.', 'success');
+        this.cargarLlantas();
+      },
+      error: (err) => {
+        // Error
+        if (
+          err.status === 500 &&
+          err.error &&
+          err.error.includes('violates foreign key constraint')
+        ) {
+          Swal.fire(
+            'No se puede eliminar',
+            'Esta llanta está siendo utilizada en otra tabla y no puede ser eliminada.',
+            'error'
+          );
+        } else {
+          Swal.fire('Error', 'Ocurrió un error al eliminar la llanta.', 'error');
+        }
+        }
+    });
+  }
+
+  //abrir modal de stock
+  abrirModalStock(llanta: InventarioLlantas) {
+    this.llantaSeleccionada = llanta;
+    this.stockForm.patchValue({
+      cantidad: [''] // Prellena con la cantidad actual
+    });
+
+    // Abre el modal con Bootstrap JS
+    const modal = document.getElementById('modalStock');
+    if (modal) {
+      (window as any).bootstrap.Modal.getOrCreateInstance(modal).show();
+    }
+  }
+
+  agregarStock(id: number) {
+    const cantidad = this.stockForm.value.cantidad;
+    this.inventarioLlantasService.addStock(id, cantidad).subscribe({
+      next: () => {
+        Swal.fire('Éxito', 'Stock agregado correctamente.', 'success');
+        this.cargarLlantas();
+      },
+      error: (err) => {
+        Swal.fire('Error', 'Ocurrió un error al agregar el stock.', 'error');
+      }
+    });
+  }
+
+  removerStock(id: number) {
+    const cantidad = this.stockForm.value.cantidad;
+    this.inventarioLlantasService.removeStock(id, cantidad).subscribe({
+      next: () => {
+        Swal.fire('Éxito', 'Stock removido correctamente.', 'success');
+        this.cargarLlantas();
+      },
+      error: (err) => {
+        Swal.fire('Error', 'Ocurrió un error al remover el stock.', 'error');
+      }
+    });
   }
 }

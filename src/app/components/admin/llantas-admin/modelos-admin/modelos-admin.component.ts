@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CatModelosComponent } from "../../../bodega/llantas/get/cat-modelos/cat-modelos.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CatModelosService } from '../../../../services/llanta/cat_modelos/cat-modelos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modelos-admin',
@@ -37,7 +38,11 @@ export class ModelosAdminComponent implements OnInit {
           }
         },
         error: (err) => {
-          // Maneja el error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al registrar el modelo',
+            text: err.error || 'Ocurrió un error al registrar el modelo.'
+            })
         }
       });
     }
