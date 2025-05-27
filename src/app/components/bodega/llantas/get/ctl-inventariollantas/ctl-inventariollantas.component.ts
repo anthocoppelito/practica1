@@ -252,7 +252,7 @@ export class CtlInventariollantasComponent implements OnInit {
   }
 
   //obtener busqueda de usuarios segun la busqueda
-  buscar(busqueda: String){
+  buscar(busqueda: string){
     if (busqueda=="" || busqueda =="*"){//buscar por todos
       this.inventarioLlantasService.getAllInventarioLlanta().subscribe({
       next: (data) => {

@@ -11,10 +11,11 @@ import { InventarioLlantasEdit } from './inventariollantasEdit';
 })
 export class CtlInventariollantasService {
 
-  getLlantasbySearch(busqueda: String): Observable<InventarioLlantas[]> {
-    return this.http.get<InventarioLlantas[]>(environment.urlApi2 + "inventarioLlanta/search/" + busqueda);
-  }
 
+  //ahora se usa searchterm para no romper las ruta
+  getLlantasbySearch(busqueda: String): Observable<InventarioLlantas[]> {
+    return this.http.get<InventarioLlantas[]>(environment.urlApi2 + "inventarioLlanta/search?searchTerm=" + busqueda);
+  }
 
   constructor(private http: HttpClient) { }
 
