@@ -10,11 +10,12 @@ import { MarcasAdminComponent } from "../marcas-admin/marcas-admin.component";
 import { ModelosAdminComponent } from "../modelos-admin/modelos-admin.component";
 import { RinesAdminComponent } from "../rines-admin/rines-admin.component";
 import { CtlinventariollantasAdminComponent } from "../ctlinventariollantas-admin/ctlinventariollantas-admin.component";
+import { MovimientosinventarioAdminComponent } from "../movimientosinventario-admin/movimientosinventario-admin.component";
 
 @Component({
   selector: 'app-todosllantas-admin',
   standalone: true,
-  imports: [FormsModule, CatMarcasComponent, CatModelosComponent, CatMovimientosinventarioComponent, CatRinesComponent, CtlInventariollantasComponent, CtlMovimientosinventarioComponent, MarcasAdminComponent, ModelosAdminComponent, RinesAdminComponent, CtlinventariollantasAdminComponent],
+  imports: [FormsModule, CatMarcasComponent, CatModelosComponent, CatMovimientosinventarioComponent, CatRinesComponent, CtlInventariollantasComponent, CtlMovimientosinventarioComponent, MarcasAdminComponent, ModelosAdminComponent, RinesAdminComponent, CtlinventariollantasAdminComponent, MovimientosinventarioAdminComponent],
   templateUrl: './todosllantas-admin.component.html',
   styleUrl: './todosllantas-admin.component.css'
 })

@@ -2,9 +2,18 @@
 <div class="card">
         <div class="card-header">Categoria Movimientos Inventario</div>
         <div class="card-body m-0">
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalCatMovimientosInventario">
+            <form [formGroup]="movimientosInventarioForm" (ngSubmit)="registrar()" class="row g-3 mb-3">
+                <div class="col-auto">
+                    <input type="text" class="form-control" formControlName="nomMovimientoinventario" placeholder="Nombre del movimiento de inventario" required>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary" [disabled]="movimientosInventarioForm.invalid">Agregar movimiento inventario</button>
+                </div>
+            </form>
+
+            <!-- <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalCatMovimientosInventario">
                 Agregar categoria de movimientos inventario
-            </button>
+            </button> -->
             <app-cat-movimientosinventario/>
         </div>
     </div>

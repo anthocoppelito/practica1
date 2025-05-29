@@ -35,15 +35,7 @@
     }
 
     @if (selectedCard === 'todos' || selectedCard === 'categoria') {
-    <div class="card">
-        <div class="card-header">Categoria Movimientos Inventario</div>
-        <div class="card-body m-0">
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalCatMovimientosInventario">
-                Agregar categoria de movimientos inventario
-            </button>
-            <app-cat-movimientosinventario/>
-        </div>
-    </div>
+        <app-movimientosinventario-admin/>
     }
 
     

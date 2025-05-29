@@ -65,6 +65,17 @@ export class CatMovimientosinventarioComponent implements OnInit{
     }
   }
 
+  recargar(){
+    this.catMovimientosinventarioService.getAllMovimientosInventario().subscribe({
+      next: (data) => {
+        this.catMovimientosinventario = data; // Asignar los movimientos de inventario a la variable
+      },
+      error: (err) => {
+        console.error('Error al obtener los movimientos de inventario:', err);
+      }
+    });
+  }
+
   
 
 }
